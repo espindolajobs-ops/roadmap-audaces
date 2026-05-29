@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="pt-BR">
   <head>
     <meta charset="utf-8" />
@@ -3778,39 +3778,58 @@ window.AudacesRoadmapSeed = {
     const text = removeAccents(String(value || "").toLowerCase().trim());
     if (!text) return {};
 
-    const range = /(\d{1,2})\s*[\/.-]\s*(\d{1,2})(?:\s*[\/.-]\s*(\d{2,4}))?\s*(?:a|ate|at\u00e9|-)\s*(\d{1,2})\s*[\/.-]\s*(\d{1,2})(?:\s*[\/.-]\s*(\d{2,4}))?/.exec(text);
+    const excelDate = parseExcelDateSerial(text);
+    if (excelDate) return excelDate;
+
+    const dateTokenPattern = "(\\d{1,2})\\s*[\\/.-]\\s*([a-z]+|\\d{1,2})(?:\\s*[\\/.-]\\s*(\\d{2,4}))?";
+    const range = new RegExp(`${dateTokenPattern}\\s*(?:a|ate|-)\\s*${dateTokenPattern}`).exec(text);
     if (range) {
-      const startYear = normalizeYear(range[3]);
-      const endYear = normalizeYear(range[6]);
+      const start = parseDateToken(range[1], range[2], range[3]);
+      const end = parseDateToken(range[4], range[5], range[6] || range[3]);
+      if (!start || !end) return {};
       return {
-        start: toDateString(startYear, Number(range[2]), Number(range[1])),
-        end: toDateString(endYear, Number(range[5]), Number(range[4])),
-        monthLabel: monthShortName(Number(range[2])),
+        start: start.date,
+        end: end.date,
+        monthLabel: monthShortName(start.month),
       };
     }
 
-    const monthName = "(jan|janeiro|fev|fevereiro|mar|marco|abr|abril|mai|maio|jun|junho|jul|julho|ago|agosto|set|setembro|out|outubro|nov|novembro|dez|dezembro)";
-    const singleNamed = new RegExp(`(\\d{1,2})\\s*(?:\\/|de|\\s)\\s*${monthName}`).exec(text);
-    if (singleNamed) {
-      const month = monthNumbers[normalizeHeader(singleNamed[2])];
+    const single = new RegExp(dateTokenPattern).exec(text);
+    if (single) {
+      const parsed = parseDateToken(single[1], single[2], single[3]);
+      if (!parsed) return {};
       return {
-        start: toDateString(seed.ano || 2026, month, Number(singleNamed[1])),
-        end: toDateString(seed.ano || 2026, month, Number(singleNamed[1])),
-        monthLabel: monthShortName(month),
-      };
-    }
-
-    const singleNumeric = /(\d{1,2})\s*[\/.-]\s*(\d{1,2})(?:\s*[\/.-]\s*(\d{2,4}))?/.exec(text);
-    if (singleNumeric) {
-      const year = normalizeYear(singleNumeric[3]);
-      return {
-        start: toDateString(year, Number(singleNumeric[2]), Number(singleNumeric[1])),
-        end: toDateString(year, Number(singleNumeric[2]), Number(singleNumeric[1])),
-        monthLabel: monthShortName(Number(singleNumeric[2])),
+        start: parsed.date,
+        end: parsed.date,
+        monthLabel: monthShortName(parsed.month),
       };
     }
 
     return {};
+  }
+
+  function parseDateToken(dayValue, monthValue, yearValue) {
+    const day = Number(dayValue);
+    const monthText = normalizeHeader(monthValue);
+    const month = /^\d+$/.test(monthText) ? Number(monthText) : monthNumbers[monthText];
+    if (!Number.isInteger(day) || day < 1 || day > 31 || !month || month < 1 || month > 12) return null;
+    return {
+      date: toDateString(normalizeYear(yearValue), month, day),
+      month,
+    };
+  }
+
+  function parseExcelDateSerial(text) {
+    if (!/^\d{5}(?:\.\d+)?$/.test(text)) return null;
+    const serial = Number(text);
+    if (!Number.isFinite(serial) || serial < 30000 || serial > 60000) return null;
+    const date = new Date(Date.UTC(1899, 11, 30) + Math.floor(serial) * 86400000);
+    const parsed = toDateString(date.getUTCFullYear(), date.getUTCMonth() + 1, date.getUTCDate());
+    return {
+      start: parsed,
+      end: parsed,
+      monthLabel: monthShortName(date.getUTCMonth() + 1),
+    };
   }
 
   function hasSpecificDate(value) {
