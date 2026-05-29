@@ -1,0 +1,4545 @@
+﻿<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Roadmap Audaces</title>
+    <style>
+:root {
+  color-scheme: light;
+  --bg: #f6f7f9;
+  --surface: #ffffff;
+  --surface-soft: #f0f3f6;
+  --line: #d9dee6;
+  --text: #1f2a37;
+  --muted: #667085;
+  --primary: #145c56;
+  --primary-strong: #0d4742;
+  --accent: #f2b544;
+  --urgent: #ba2f2f;
+  --copy: #2f6fbd;
+  --design: #7a4db3;
+  --setup: #2d7d68;
+  --publish: #a65f00;
+  --event: #46515f;
+  font-family: "Inter", "Segoe UI", system-ui, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--text);
+}
+
+button,
+input,
+select {
+  font: inherit;
+}
+
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 22px 28px 18px;
+  border-bottom: 1px solid var(--line);
+  background: var(--surface);
+}
+
+.eyebrow {
+  margin: 0 0 4px;
+  color: var(--primary);
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0;
+}
+
+h1,
+h2,
+p {
+  margin: 0;
+}
+
+h1 {
+  font-size: 26px;
+  line-height: 1.15;
+}
+
+h2 {
+  font-size: 18px;
+  line-height: 1.25;
+}
+
+.workspace {
+  display: grid;
+  grid-template-columns: minmax(420px, 0.95fr) minmax(560px, 1.35fr);
+  gap: 18px;
+  padding: 18px;
+}
+
+.input-panel,
+.result-panel {
+  min-width: 0;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+
+.input-panel {
+  padding: 18px;
+}
+
+.result-panel {
+  padding: 18px;
+}
+
+.section-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.section-heading p {
+  margin-top: 5px;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.header-actions,
+.export-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.header-actions {
+  justify-content: flex-end;
+}
+
+.button,
+.icon-button {
+  min-height: 38px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.button {
+  padding: 0 14px;
+}
+
+.icon-button {
+  width: 38px;
+  color: var(--surface);
+  background: var(--primary);
+  font-size: 24px;
+  line-height: 1;
+}
+
+.button.primary {
+  color: var(--surface);
+  background: var(--primary);
+}
+
+.button.primary:hover,
+.icon-button:hover {
+  background: var(--primary-strong);
+}
+
+.button.secondary {
+  color: var(--text);
+  background: var(--surface-soft);
+  border-color: var(--line);
+}
+
+.button.secondary:hover {
+  background: #e7ebf0;
+}
+
+.button.ghost {
+  color: var(--muted);
+  background: transparent;
+  border-color: transparent;
+}
+
+.button.ghost:hover {
+  color: var(--text);
+  background: rgba(20, 92, 86, 0.08);
+}
+
+.button.danger {
+  color: #7f1d1d;
+  background: #fee2e2;
+  border-color: #f6b7b7;
+}
+
+.button.danger:hover {
+  background: #ffd1d1;
+}
+
+.link-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
+
+.button:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+.howto-panel {
+  margin-bottom: 14px;
+  padding: 12px;
+  background: #eef7f5;
+  border: 1px solid #c7e3dc;
+  border-radius: 8px;
+}
+
+.howto-panel summary {
+  cursor: pointer;
+  color: var(--primary);
+  font-weight: 800;
+}
+
+.howto-panel ol {
+  display: grid;
+  gap: 6px;
+  margin: 10px 0 12px 20px;
+  padding: 0;
+  color: var(--text);
+  font-size: 13px;
+}
+
+.howto-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.sheet-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  margin-bottom: 12px;
+  background: #f8fafb;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+
+.sheet-card strong {
+  display: block;
+  margin-bottom: 3px;
+  color: var(--text);
+}
+
+.sheet-card p {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.sheet-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.reference-row {
+  display: grid;
+  grid-template-columns: 160px minmax(180px, 240px);
+  align-items: center;
+  gap: 10px;
+  padding: 12px;
+  margin-bottom: 14px;
+  background: var(--surface-soft);
+  border-radius: 8px;
+}
+
+label {
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+input,
+select {
+  width: 100%;
+  min-width: 0;
+  min-height: 36px;
+  padding: 7px 9px;
+  color: var(--text);
+  background: #ffffff;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+}
+
+input:focus,
+select:focus,
+button:focus-visible {
+  outline: 3px solid rgba(20, 92, 86, 0.18);
+  outline-offset: 1px;
+}
+
+.table-wrap {
+  overflow: auto;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  padding: 10px;
+  color: var(--muted);
+  background: #f9fafb;
+  border-bottom: 1px solid var(--line);
+  font-size: 12px;
+  text-align: left;
+  text-transform: uppercase;
+  letter-spacing: 0;
+}
+
+td {
+  padding: 8px;
+  border-bottom: 1px solid var(--line);
+  vertical-align: top;
+}
+
+tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.campaign-list {
+  display: grid;
+  gap: 10px;
+  max-height: calc(100vh - 236px);
+  overflow: auto;
+  padding-right: 2px;
+}
+
+.campaign-row {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  padding: 12px 56px 12px 12px;
+  background: #fbfcfd;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+
+.form-field {
+  display: grid;
+  gap: 5px;
+  min-width: 0;
+}
+
+.form-field span {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.form-field.wide {
+  grid-column: span 2;
+}
+
+.remove-row {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 32px;
+  height: 32px;
+  color: var(--urgent);
+  background: #fff4f4;
+  border: 1px solid #f0c4c4;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 22px;
+  line-height: 1;
+}
+
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.metric {
+  min-width: 0;
+  padding: 12px;
+  background: var(--surface-soft);
+  border-radius: 8px;
+}
+
+.metric span {
+  display: block;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.metric strong {
+  display: block;
+  margin-top: 6px;
+  font-size: 22px;
+  line-height: 1.1;
+}
+
+#periodRange {
+  font-size: 16px;
+}
+
+.metric.urgent strong {
+  color: var(--urgent);
+}
+
+.tabs {
+  display: inline-flex;
+  gap: 4px;
+  padding: 4px;
+  margin-bottom: 14px;
+  background: var(--surface-soft);
+  border-radius: 8px;
+}
+
+.tab {
+  min-height: 34px;
+  padding: 0 12px;
+  color: var(--muted);
+  background: transparent;
+  border: 0;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.tab.active {
+  color: var(--text);
+  background: var(--surface);
+  box-shadow: 0 1px 2px rgba(16, 24, 40, 0.12);
+}
+
+.alert-box {
+  padding: 10px 12px;
+  margin-bottom: 12px;
+  color: #7a2e0b;
+  background: #fff4df;
+  border: 1px solid #f4d097;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+.result-area {
+  min-height: 360px;
+}
+
+.empty-state {
+  display: grid;
+  place-items: center;
+  color: var(--muted);
+  text-align: center;
+  background: #fbfcfd;
+  border: 1px dashed var(--line);
+  border-radius: 8px;
+}
+
+.timeline {
+  display: grid;
+  gap: 8px;
+}
+
+.timeline-scale,
+.timeline-row {
+  display: grid;
+  grid-template-columns: minmax(220px, 280px) 1fr;
+  gap: 12px;
+  align-items: center;
+}
+
+.timeline-scale {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.scale-track {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 2px;
+}
+
+.timeline-label {
+  min-width: 0;
+}
+
+.campaign-name {
+  overflow: hidden;
+  font-weight: 800;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.step-name {
+  margin-top: 2px;
+  overflow: hidden;
+  color: var(--muted);
+  font-size: 12px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.timeline-track {
+  position: relative;
+  height: 32px;
+  background: repeating-linear-gradient(
+    to right,
+    #eef1f4 0,
+    #eef1f4 1px,
+    transparent 1px,
+    transparent 48px
+  );
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+
+.bar {
+  position: absolute;
+  top: 5px;
+  bottom: 5px;
+  min-width: 18px;
+  border-radius: 6px;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 800;
+  line-height: 22px;
+  overflow: hidden;
+  padding: 0 7px;
+}
+
+.lane-1 {
+  background: var(--event);
+}
+
+.lane-2 {
+  background: var(--copy);
+}
+
+.lane-3 {
+  background: var(--design);
+}
+
+.lane-4 {
+  background: var(--setup);
+}
+
+.lane-5 {
+  background: var(--publish);
+}
+
+.bar.urgent-bar {
+  background: var(--urgent);
+}
+
+.group-list {
+  display: grid;
+  gap: 14px;
+}
+
+.group-section {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.group-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 14px;
+  background: #f9fafb;
+  border-bottom: 1px solid var(--line);
+}
+
+.group-title strong {
+  font-size: 15px;
+}
+
+.group-title span {
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.result-table {
+  min-width: 940px;
+}
+
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+  padding: 0 8px;
+  border-radius: 999px;
+  color: #1f2a37;
+  background: #e9eef4;
+  font-size: 12px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.status-pill.urgent-status {
+  color: #7f1d1d;
+  background: #fee2e2;
+}
+
+@media (max-width: 1100px) {
+  .workspace {
+    grid-template-columns: 1fr;
+  }
+
+  .input-table-wrap {
+    max-height: none;
+  }
+}
+
+@media (max-width: 720px) {
+  .app-header {
+    align-items: flex-start;
+    flex-direction: column;
+    padding: 18px;
+  }
+
+  .workspace {
+    padding: 12px;
+  }
+
+  .summary-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .reference-row,
+  .sheet-card,
+  .timeline-scale,
+  .timeline-row {
+    grid-template-columns: 1fr;
+  }
+
+  .sheet-actions {
+    justify-content: stretch;
+  }
+
+  .sheet-actions .button {
+    width: 100%;
+  }
+
+  .campaign-row {
+    grid-template-columns: 1fr;
+  }
+
+  .form-field,
+  .form-field.wide {
+    grid-column: 1 / -1;
+  }
+
+  .timeline-track {
+    height: 36px;
+  }
+}
+
+.selection-actions {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 6px;
+  padding: 4px;
+  margin-bottom: 10px;
+  background: var(--surface-soft);
+  border-radius: 8px;
+}
+
+.filter-button {
+  min-height: 34px;
+  padding: 0 8px;
+  color: var(--muted);
+  background: transparent;
+  border: 0;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 800;
+}
+
+.filter-button.active {
+  color: var(--text);
+  background: var(--surface);
+  box-shadow: 0 1px 2px rgba(16, 24, 40, 0.12);
+}
+
+.campaign-panel {
+  margin-bottom: 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  overflow: hidden;
+  background: #ffffff;
+}
+
+.campaign-panel > summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 46px;
+  padding: 0 12px;
+  cursor: pointer;
+  list-style: none;
+  font-weight: 900;
+}
+
+.campaign-panel > summary::-webkit-details-marker {
+  display: none;
+}
+
+.campaign-panel > summary::before {
+  content: "Ver";
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+  padding: 0 8px;
+  color: var(--primary);
+  background: #e6f4f1;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.campaign-panel[open] > summary::before {
+  content: "Ocultar";
+}
+
+#campaignPanelSummary {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.campaign-tools {
+  display: grid;
+  gap: 10px;
+  padding: 0 12px 12px;
+}
+
+.market-filter,
+.status-filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.market-filter-button,
+.status-filter-button {
+  min-height: 30px;
+  padding: 0 10px;
+  color: var(--muted);
+  background: var(--surface-soft);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.market-filter-button.active,
+.status-filter-button.active {
+  color: #ffffff;
+  background: var(--primary);
+  border-color: var(--primary);
+}
+
+.quick-actions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.quick-actions .button {
+  width: 100%;
+}
+
+.bulk-panel {
+  padding: 10px 12px;
+  margin: 0 12px 12px;
+  background: #fbfcfd;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+
+.bulk-panel summary {
+  cursor: pointer;
+  font-weight: 900;
+}
+
+.bulk-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.bulk-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.import-panel {
+  padding: 10px 12px;
+  margin-bottom: 12px;
+  background: #fbfcfd;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+
+.import-panel summary {
+  cursor: pointer;
+  font-weight: 800;
+}
+
+.import-panel input,
+.import-panel textarea,
+.import-panel button {
+  margin-top: 10px;
+}
+
+textarea {
+  width: 100%;
+  min-width: 0;
+  padding: 9px;
+  resize: vertical;
+  color: var(--text);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+}
+
+.campaign-list {
+  align-content: start;
+}
+
+.campaign-row {
+  display: block;
+  padding: 0;
+  overflow: hidden;
+}
+
+.campaign-summary {
+  display: grid;
+  grid-template-columns: 22px auto minmax(0, 1fr) auto auto;
+  gap: 8px;
+  align-items: center;
+  min-height: 52px;
+  padding: 9px 10px;
+  cursor: pointer;
+  list-style: none;
+}
+
+.campaign-summary::-webkit-details-marker {
+  display: none;
+}
+
+.field-selected {
+  width: 18px;
+  min-height: 18px;
+}
+
+.summary-name {
+  min-width: 0;
+  overflow: hidden;
+  color: var(--text);
+  font-weight: 900;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.summary-date {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.market-chip,
+.status-chip {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+  padding: 0 7px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 900;
+  white-space: nowrap;
+}
+
+.market-chip {
+  color: #ffffff;
+}
+
+.market-brasil,
+.market-dot-brasil::before {
+  background: #ff9638;
+}
+
+.market-latam,
+.market-dot-latam::before {
+  background: #8247f5;
+}
+
+.market-global,
+.market-dot-global::before {
+  background: #063a98;
+}
+
+.market-italia,
+.market-dot-italia::before {
+  background: #55c96b;
+}
+
+.status-chip {
+  color: #344054;
+  background: #e9eef4;
+}
+
+.status-urgente,
+.status-chip.status-urgente {
+  color: #7f1d1d;
+  background: #fee2e2;
+}
+
+.status-evento,
+.status-chip.status-evento {
+  color: #614a00;
+  background: #fff1bf;
+}
+
+.status-a_confirmar,
+.status-chip.status-a_confirmar {
+  color: #563a12;
+  background: #f8e7c6;
+}
+
+.status-pausado,
+.status-chip.status-pausado {
+  color: #344054;
+  background: #d8dee8;
+}
+
+.status-concluido,
+.status-chip.status-concluido {
+  color: #175c34;
+  background: #d8f4e2;
+}
+
+.campaign-fields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  padding: 0 12px 12px;
+}
+
+.deadline-box {
+  grid-column: span 2;
+  display: grid;
+  gap: 10px;
+  padding: 12px;
+  background: #f8fafb;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+
+.deadline-box > div:first-child {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.deadline-box span {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.deadline-box strong {
+  color: var(--primary);
+  font-size: 14px;
+}
+
+.deadline-box p {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.deadline-custom-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.campaign-list-empty {
+  padding: 16px;
+  color: var(--muted);
+  background: #fbfcfd;
+  border: 1px dashed var(--line);
+  border-radius: 8px;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.campaign-fields .remove-row {
+  position: static;
+  grid-column: span 2;
+  width: auto;
+  height: 36px;
+  color: var(--urgent);
+  background: #fff4f4;
+  border: 1px solid #f0c4c4;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 900;
+}
+
+.gantt-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.legend-item::before {
+  content: "";
+  width: 18px;
+  height: 10px;
+  border-radius: 2px;
+}
+
+.gantt-scroll {
+  overflow: auto;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff8ef;
+}
+
+.gantt-canvas {
+  min-width: 100%;
+}
+
+.gantt-header-line,
+.gantt-lane {
+  display: grid;
+  grid-template-columns: 152px 1fr;
+}
+
+.gantt-corner,
+.gantt-lane-label {
+  position: sticky;
+  left: 0;
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0 14px;
+  color: var(--text);
+  background: #fff8ef;
+  border-right: 1px solid rgba(0, 0, 0, 0.08);
+  font-size: 12px;
+  font-weight: 900;
+  text-align: right;
+}
+
+.gantt-corner {
+  height: 26px;
+}
+
+.gantt-corner.small {
+  height: 24px;
+  color: var(--muted);
+}
+
+.gantt-months,
+.gantt-weeks,
+.gantt-lane-track {
+  position: relative;
+}
+
+.gantt-months {
+  height: 26px;
+}
+
+.gantt-weeks {
+  height: 24px;
+}
+
+.month-cell,
+.week-cell {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-left: 1px solid rgba(255, 255, 255, 0.35);
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 900;
+  white-space: nowrap;
+}
+
+.month-cell {
+  background: #9147f4;
+}
+
+.week-cell {
+  color: #59436f;
+  background: #ead9ff;
+  font-size: 11px;
+}
+
+.gantt-lane {
+  border-top: 10px solid #fff8ef;
+}
+
+.gantt-lane-track {
+  background-image: repeating-linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0.72) 0,
+    rgba(255, 255, 255, 0.72) 1px,
+    transparent 1px,
+    transparent 84px
+  );
+}
+
+.lane-bg-1 .gantt-lane-track {
+  background-color: #f7b7df;
+}
+
+.lane-bg-2 .gantt-lane-track {
+  background-color: #b9def5;
+}
+
+.lane-bg-3 .gantt-lane-track {
+  background-color: #d5c2f5;
+}
+
+.lane-bg-4 .gantt-lane-track {
+  background-color: #bff3ee;
+}
+
+.lane-bg-5 .gantt-lane-track {
+  background-color: #cdf4d4;
+}
+
+.gantt-bar {
+  position: absolute;
+  height: 22px;
+  min-width: 34px;
+  overflow: hidden;
+  padding: 0 6px;
+  border-radius: 3px;
+  color: #ffffff;
+  box-shadow: 0 1px 0 rgba(16, 24, 40, 0.16);
+  font-size: 10px;
+  font-weight: 900;
+  line-height: 22px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.gantt-bar.urgent-bar {
+  background: var(--urgent);
+}
+
+@media (max-width: 720px) {
+  .campaign-summary {
+    grid-template-columns: 22px auto minmax(0, 1fr);
+  }
+
+  .summary-date,
+  .status-chip {
+    grid-column: 3;
+  }
+
+  .campaign-fields {
+    grid-template-columns: 1fr;
+  }
+
+  .campaign-fields .remove-row,
+  .deadline-box,
+  .form-field.wide {
+    grid-column: 1;
+  }
+
+  .bulk-grid,
+  .deadline-custom-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+</style>
+    <meta name="sharepoint-static-mode" content="single-file" />
+  </head>
+  <body>
+    <header class="app-header">
+      <div>
+        <p class="eyebrow">Audaces Marketing</p>
+        <h1>Roadmap de Campanhas H2 2026</h1>
+      </div>
+      <div class="header-actions" aria-label="Acoes principais">
+        <button id="howToButton" class="button secondary" type="button">Como usar</button>
+        <button id="showCampaignsButton" class="button secondary" type="button">Ver campanhas</button>
+        <button id="undoButton" class="button secondary" type="button" disabled title="Voltar ate 5 acoes">Voltar</button>
+        <button id="saveButton" class="button secondary" type="button">Salvar</button>
+        <button id="calculateButton" class="button primary" type="button">Calcular</button>
+      </div>
+    </header>
+
+    <main class="workspace">
+      <section class="input-panel" aria-labelledby="input-title">
+        <div class="section-heading">
+          <div>
+            <h2 id="input-title">Painel de controle</h2>
+            <p>Use a planilha como base, importe o arquivo e confira o Gantt.</p>
+          </div>
+        </div>
+
+        <details id="howToPanel" class="howto-panel">
+          <summary>Como usar em 1 minuto</summary>
+          <ol>
+            <li>Abra a planilha e edite as campanhas.</li>
+            <li>Volte para esta tela e clique em Importar planilha.</li>
+            <li>Escolha o arquivo Cronograma de campanhas para GANTT.xlsx.</li>
+            <li>Confira o Gantt e exporte CSV/Asana se precisar.</li>
+            <li>Use Salvar so se o SharePoint permitir. Se algo sair errado, use Voltar.</li>
+          </ol>
+          <div class="howto-actions">
+            <a class="button secondary link-button" href="Cronograma de campanhas para GANTT.xlsx" target="_blank" rel="noopener">Abrir planilha</a>
+            <button id="openImportButton" class="button primary" type="button">Importar planilha</button>
+            <button id="hideHowToButton" class="button ghost" type="button">Ocultar guia</button>
+          </div>
+        </details>
+
+        <div class="sheet-card">
+          <div>
+            <strong>Planilha do time</strong>
+            <p>Caminho recomendado: editar a planilha no SharePoint e importar o arquivo aqui. O botao online e opcional.</p>
+          </div>
+          <div class="sheet-actions">
+            <a class="button secondary link-button" href="Cronograma de campanhas para GANTT.xlsx" target="_blank" rel="noopener">Abrir planilha</a>
+            <button id="openImportCardButton" class="button primary" type="button">Importar planilha</button>
+            <button id="loadOnlineSheetButton" class="button secondary" type="button">Tentar atualizar online</button>
+          </div>
+        </div>
+
+        <div class="reference-row">
+          <label for="referenceDate">Data de referencia</label>
+          <input id="referenceDate" type="date" />
+        </div>
+
+        <div class="selection-actions" aria-label="Filtros de visualizacao">
+          <button class="filter-button active" type="button" data-filter="confirmed">Confirmadas</button>
+          <button class="filter-button" type="button" data-filter="selected">Selecionadas</button>
+          <button class="filter-button" type="button" data-filter="all">Todas</button>
+        </div>
+
+        <details id="campaignPanel" class="campaign-panel">
+          <summary>
+            <span>Ver campanhas</span>
+            <strong id="campaignPanelSummary">0 campanhas</strong>
+          </summary>
+
+          <div class="campaign-tools">
+            <div class="market-filter" aria-label="Ver campanhas por mercado">
+              <button class="market-filter-button active" type="button" data-campaign-market="ALL">Todas</button>
+              <button class="market-filter-button" type="button" data-campaign-market="BRASIL">Brasil</button>
+              <button class="market-filter-button" type="button" data-campaign-market="LATAM">LATAM</button>
+              <button class="market-filter-button" type="button" data-campaign-market="ITALIA">Italia</button>
+              <button class="market-filter-button" type="button" data-campaign-market="GLOBAL">Global</button>
+            </div>
+
+            <div class="status-filter" aria-label="Ver campanhas por status">
+              <button class="status-filter-button active" type="button" data-campaign-status="ALL">Todos status</button>
+              <button class="status-filter-button" type="button" data-campaign-status="andamento">Em execucao</button>
+              <button class="status-filter-button" type="button" data-campaign-status="urgente">Urgente</button>
+              <button class="status-filter-button" type="button" data-campaign-status="a_confirmar">A confirmar</button>
+              <button class="status-filter-button" type="button" data-campaign-status="concluido">Concluido</button>
+              <button class="status-filter-button" type="button" data-campaign-status="planejado">Planejado</button>
+            </div>
+
+            <div class="quick-actions">
+              <button id="addCampaignButton" class="button secondary" type="button">Adicionar</button>
+              <button id="selectAllButton" class="button secondary" type="button">Selecionar tudo</button>
+              <button id="clearSelectionButton" class="button secondary" type="button">Limpar selecao</button>
+              <button id="deleteSelectedButton" class="button danger" type="button">Apagar selecionadas</button>
+              <button id="loadSeedButton" class="button secondary" type="button">Base H2</button>
+            </div>
+          </div>
+
+          <details class="bulk-panel">
+            <summary>Editar selecionadas em massa</summary>
+            <div class="bulk-grid">
+              <label class="form-field">
+                <span>Mercado</span>
+                <select id="bulkMarket">
+                  <option value="">Nao alterar</option>
+                  <option>BRASIL</option>
+                  <option>LATAM</option>
+                  <option>ITALIA</option>
+                  <option>GLOBAL</option>
+                </select>
+              </label>
+              <label class="form-field">
+                <span>Status</span>
+                <select id="bulkStatus">
+                  <option value="">Nao alterar</option>
+                  <option value="planejado">Planejado confirmado</option>
+                  <option value="andamento">Em execucao</option>
+                  <option value="urgente">Urgente</option>
+                  <option value="evento">Evento ancora</option>
+                  <option value="a_confirmar">A confirmar</option>
+                  <option value="pausado">Pausado</option>
+                  <option value="concluido">Concluido</option>
+                </select>
+              </label>
+              <label class="form-field wide">
+                <span>Tipo</span>
+                <select id="bulkType">
+                  <option value="">Nao alterar</option>
+                </select>
+              </label>
+              <label class="form-field">
+                <span>Direcao</span>
+                <select id="bulkDirection">
+                  <option value="">Nao alterar</option>
+                  <option value="BACKWARD">Publicacao</option>
+                  <option value="FORWARD">Inicio</option>
+                  <option value="EVENT_DATE">Data do evento</option>
+                </select>
+              </label>
+              <label class="form-field">
+                <span>Data alvo</span>
+                <input id="bulkDate" type="date" />
+              </label>
+              <label class="form-field">
+                <span>Prazo alternativo dias</span>
+                <input id="bulkCustomDays" type="number" min="0" step="0.5" placeholder="Nao alterar" />
+              </label>
+              <label class="form-field">
+                <span>Prazo alternativo horas</span>
+                <input id="bulkCustomHours" type="number" min="0" step="0.5" placeholder="Nao alterar" />
+              </label>
+            </div>
+            <div class="bulk-actions">
+              <button id="applyBulkButton" class="button primary" type="button">Aplicar nas selecionadas</button>
+              <button id="clearBulkDeadlineButton" class="button secondary" type="button">Limpar prazo personalizado</button>
+            </div>
+          </details>
+
+          <details id="importPanel" class="import-panel">
+            <summary>Importar arquivo manualmente</summary>
+            <input id="fileInput" type="file" accept=".xlsx,.csv,.tsv,.txt" />
+            <textarea id="pasteArea" rows="7" placeholder="Cole aqui a tabela do Excel/Sheets com mercados nas linhas e meses nas colunas."></textarea>
+            <button id="importTextButton" class="button secondary" type="button">Importar texto colado</button>
+          </details>
+
+          <div id="campaignRows" class="campaign-list"></div>
+        </details>
+      </section>
+
+      <section class="result-panel" aria-labelledby="result-title">
+        <div class="section-heading result-heading">
+          <div>
+            <h2 id="result-title">Resultado</h2>
+            <p id="resultSubtitle">Calcule para visualizar as etapas alocadas.</p>
+          </div>
+          <div class="export-actions">
+            <button id="exportCsvButton" class="button secondary" type="button" disabled>CSV</button>
+            <button id="exportAsanaButton" class="button secondary" type="button" disabled>Asana CSV</button>
+            <button id="exportJsonButton" class="button secondary" type="button" disabled>JSON</button>
+          </div>
+        </div>
+
+        <div class="summary-grid" id="summaryGrid" aria-live="polite">
+          <div class="metric">
+            <span>Total de etapas</span>
+            <strong id="totalSteps">0</strong>
+          </div>
+          <div class="metric urgent">
+            <span>Urgentes</span>
+            <strong id="urgentSteps">0</strong>
+          </div>
+          <div class="metric">
+            <span>Campanhas</span>
+            <strong id="totalCampaigns">0</strong>
+          </div>
+          <div class="metric">
+            <span>Periodo</span>
+            <strong id="periodRange">-</strong>
+          </div>
+        </div>
+
+        <div class="tabs" role="tablist" aria-label="Visualizacao dos resultados">
+          <button class="tab active" type="button" data-view="gantt">Gantt Figma</button>
+          <button class="tab" type="button" data-view="timeline">Lista visual</button>
+          <button class="tab" type="button" data-view="market">Por mercado</button>
+          <button class="tab" type="button" data-view="lane">Por esteira</button>
+        </div>
+
+        <div id="alertBox" class="alert-box" hidden></div>
+        <div id="resultArea" class="result-area empty-state">
+          Preencha ou carregue campanhas e clique em Calcular.
+        </div>
+      </section>
+    </main>
+
+    <template id="campaignRowTemplate">
+      <details class="campaign-row">
+        <summary class="campaign-summary">
+          <input class="field-selected" type="checkbox" title="Mostrar quando o filtro Selecionadas estiver ativo" />
+          <span class="market-chip"></span>
+          <span class="summary-name"></span>
+          <span class="summary-date"></span>
+          <span class="status-chip"></span>
+        </summary>
+        <div class="campaign-fields">
+          <label class="form-field wide">
+            <span>Nome</span>
+            <input class="field-name" type="text" placeholder="Nome da campanha" />
+          </label>
+          <label class="form-field">
+            <span>Mercado</span>
+            <select class="field-market">
+              <option>BRASIL</option>
+              <option>LATAM</option>
+              <option>ITALIA</option>
+              <option>GLOBAL</option>
+            </select>
+          </label>
+          <label class="form-field">
+            <span>Status</span>
+            <select class="field-status-code">
+              <option value="planejado">Planejado confirmado</option>
+              <option value="andamento">Em execucao</option>
+              <option value="urgente">Urgente</option>
+              <option value="evento">Evento ancora</option>
+              <option value="a_confirmar">A confirmar</option>
+              <option value="pausado">Pausado</option>
+              <option value="concluido">Concluido</option>
+            </select>
+          </label>
+          <label class="form-field wide">
+            <span>Tipo</span>
+            <select class="field-type"></select>
+          </label>
+          <div class="deadline-box">
+            <div>
+              <span>Prazo Step Tasks</span>
+              <strong class="standard-deadline">-</strong>
+            </div>
+            <div class="deadline-custom-grid">
+              <label class="form-field">
+                <span>Prazo alternativo dias</span>
+                <input class="field-custom-days" type="number" min="0" step="0.5" placeholder="Opcional" />
+              </label>
+              <label class="form-field">
+                <span>Prazo alternativo horas</span>
+                <input class="field-custom-hours" type="number" min="0" step="0.5" placeholder="Opcional" />
+              </label>
+            </div>
+            <p>Se preencher, o Gantt redistribui esse prazo nas etapas do Step Tasks.</p>
+          </div>
+          <label class="form-field">
+            <span>Direcao</span>
+            <select class="field-direction">
+              <option value="BACKWARD">Publicacao</option>
+              <option value="FORWARD">Inicio</option>
+              <option value="EVENT_DATE">Data do evento</option>
+            </select>
+          </label>
+          <label class="form-field">
+            <span>Data alvo</span>
+            <input class="field-date" type="date" />
+          </label>
+          <label class="form-field">
+            <span>Mes origem</span>
+            <input class="field-origin" type="text" placeholder="Mai" />
+          </label>
+          <button class="remove-row" type="button">Apagar campanha</button>
+        </div>
+      </details>
+    </template>
+
+    <script>
+/**
+ * Schedule Engine para roadmaps de campanhas Audaces.
+ *
+ * - Sem dependencias externas.
+ * - Considera dias uteis de segunda a sexta.
+ * - Converte dias, horas e minutos para uma jornada padrao de 8h.
+ * - Suporta calculo progressivo, reverso e data real de evento.
+ */
+
+const WORKDAY_START_HOUR = 9;
+const WORKDAY_END_HOUR = 17;
+const WORKDAY_MINUTES = (WORKDAY_END_HOUR - WORKDAY_START_HOUR) * 60;
+
+const DIRECOES = Object.freeze({
+  FORWARD: "FORWARD",
+  BACKWARD: "BACKWARD",
+  EVENT_DATE: "EVENT_DATE",
+});
+
+const ESTEIRAS_FIGMA = Object.freeze({
+  1: "Eventos/Feriados",
+  2: "Copy",
+  3: "Design",
+  4: "Setup",
+  5: "Publicacao",
+});
+
+function duracao({ dias = 0, horas = 0, minutos = 0 }) {
+  return dias * WORKDAY_MINUTES + horas * 60 + minutos;
+}
+
+function etapa(nome, tempo, squadResponsavel, esteiraFigma) {
+  return {
+    nome,
+    duracaoMinutos: duracao(tempo),
+    squadResponsavel,
+    esteiraFigma,
+  };
+}
+
+function numeroPrazo(valor) {
+  if (valor === null || valor === undefined || valor === "") return 0;
+  const numero = Number(String(valor).replace(",", "."));
+  return Number.isFinite(numero) && numero > 0 ? numero : 0;
+}
+
+function prazoPersonalizadoMinutos(campanha) {
+  const dias = numeroPrazo(campanha.prazoPersonalizadoDias ?? campanha.prazoAlternativoDias);
+  const horas = numeroPrazo(campanha.prazoPersonalizadoHoras ?? campanha.prazoAlternativoHoras);
+  const minutos = numeroPrazo(campanha.prazoPersonalizadoMinutos ?? campanha.prazoAlternativoMinutos);
+  const total = dias * WORKDAY_MINUTES + horas * 60 + minutos;
+  return total > 0 ? Math.round(total) : 0;
+}
+
+function totalEtapasMinutos(etapas) {
+  return etapas.reduce((total, etapaAtual) => total + etapaAtual.duracaoMinutos, 0);
+}
+
+function ajustarEtapasPorPrazo(etapas, totalPersonalizado) {
+  const totalOriginal = totalEtapasMinutos(etapas);
+  if (!totalOriginal || !totalPersonalizado) return etapas;
+
+  let restante = totalPersonalizado;
+  return etapas.map((etapaAtual, index) => {
+    const isLast = index === etapas.length - 1;
+    const duracaoAjustada = isLast
+      ? Math.max(5, restante)
+      : Math.max(5, Math.round((etapaAtual.duracaoMinutos / totalOriginal) * totalPersonalizado));
+    restante -= duracaoAjustada;
+
+    return {
+      ...etapaAtual,
+      duracaoMinutos: duracaoAjustada,
+      duracaoMinutosStepTasks: etapaAtual.duracaoMinutos,
+    };
+  });
+}
+
+function resolverEtapasCampanha(campanha, tipoNormalizado) {
+  const etapasBase = TEMPLATES[tipoNormalizado];
+  const prazoStepTasksMinutos = totalEtapasMinutos(etapasBase);
+  const personalizado = prazoPersonalizadoMinutos(campanha);
+  const usarPersonalizado = personalizado > 0 && personalizado !== prazoStepTasksMinutos;
+
+  return {
+    etapas: usarPersonalizado ? ajustarEtapasPorPrazo(etapasBase, personalizado) : etapasBase,
+    prazoStepTasksMinutos,
+    prazoPersonalizadoMinutos: usarPersonalizado ? personalizado : null,
+    prazoPersonalizadoAtivo: usarPersonalizado,
+  };
+}
+
+const SQUAD = Object.freeze({
+  atendimento: "Atendimento / Solicitante",
+  copy: "Copy",
+  conteudo: "Conteudo / SEO",
+  traducao: "Traducao / Localizacao",
+  design: "Design",
+  revisao: "Revisao / Aprovacao",
+  inbound: "Inbound / RD Station",
+  performance: "Performance / Ads",
+  social: "Social Media",
+  eventos: "Eventos",
+  video: "Video",
+  web: "Web / Site",
+  comercial: "Comercial / WAG",
+  pd: "P&D / Produto",
+});
+
+const TEMPLATES = Object.freeze({
+  "Assinatura de E-mail": [
+    etapa("Receber solicitacao e validar dados", { minutos: 2 }, SQUAD.atendimento, 4),
+    etapa("Devolver irregularidade ao solicitante, se houver", { minutos: 5 }, SQUAD.atendimento, 4),
+    etapa("Produzir assinatura", { dias: 2 }, SQUAD.design, 3),
+    etapa("Entregar material por e-mail", { minutos: 2 }, SQUAD.atendimento, 5),
+  ],
+
+  "Newsletter Brasil": [
+    etapa("Definicao de pauta", { minutos: 30 }, SQUAD.conteudo, 2),
+    etapa("Criacao de copy", { minutos: 30 }, SQUAD.copy, 2),
+    etapa("Montagem da newsletter", { minutos: 30 }, SQUAD.inbound, 4),
+    etapa("Revisao visual", { minutos: 15 }, SQUAD.revisao, 3),
+    etapa("Teste e programacao do disparo", { minutos: 15 }, SQUAD.inbound, 5),
+  ],
+
+  "Newsletter Espanhol / Italiano / Ingles": [
+    etapa("Criacao de copy", { minutos: 30 }, SQUAD.copy, 2),
+    etapa("Traducao", { horas: 4 }, SQUAD.traducao, 2),
+    etapa("Revisao da traducao", { minutos: 30 }, SQUAD.revisao, 2),
+    etapa("Montagem da newsletter", { minutos: 30 }, SQUAD.inbound, 4),
+    etapa("Revisao visual", { minutos: 15 }, SQUAD.revisao, 3),
+    etapa("Teste e programacao do disparo", { minutos: 15 }, SQUAD.inbound, 5),
+  ],
+
+  "Material Rico Brasil": [
+    etapa("Definicao de pauta e briefing inbound", { horas: 1 }, SQUAD.conteudo, 2),
+    etapa("Redacao do conteudo", { dias: 3 }, SQUAD.conteudo, 2),
+    etapa("Copy de LP e TYP", { dias: 1 }, SQUAD.copy, 2),
+    etapa("Copy dos fluxos de e-mail e regua de nutricao", { horas: 2 }, SQUAD.copy, 2),
+    etapa("Diagramacao do material", { dias: 5 }, SQUAD.design, 3),
+    etapa("Copy das pecas de divulgacao", { horas: 4 }, SQUAD.copy, 2),
+    etapa("Design das pecas de divulgacao", { dias: 1 }, SQUAD.design, 3),
+    etapa("Revisao do e-book diagramado", { horas: 1 }, SQUAD.revisao, 3),
+    etapa("Revisao do design do MR diagramado", { horas: 1 }, SQUAD.revisao, 3),
+    etapa("Ajustes pos-revisao", { dias: 1 }, SQUAD.design, 3),
+    etapa("Montagem de LP e TYP", { minutos: 30 }, SQUAD.inbound, 4),
+    etapa("Revisao de design da LP e TYP", { horas: 4 }, SQUAD.revisao, 3),
+    etapa("Revisao inbound da LP e TYP", { minutos: 45 }, SQUAD.revisao, 4),
+    etapa("Subir e-mails no RD", { minutos: 30 }, SQUAD.inbound, 4),
+    etapa("Subir MR no RD, TYP e card", { minutos: 30 }, SQUAD.inbound, 4),
+    etapa("Criar pop-up", { minutos: 10 }, SQUAD.inbound, 4),
+    etapa("Criar forms e automacao", { minutos: 30 }, SQUAD.inbound, 4),
+    etapa("Programacao, revisao e teste de e-mail", { horas: 1 }, SQUAD.inbound, 5),
+    etapa("Programar postagem social", { dias: 1 }, SQUAD.social, 5),
+    etapa("Campanha de ads", { dias: 1 }, SQUAD.performance, 5),
+    etapa("Subir material no site", { dias: 1 }, SQUAD.web, 5),
+    etapa("Subir material no portal/franqueado", { minutos: 5 }, SQUAD.web, 5),
+    etapa("Atualizar planilha com links do MR", { minutos: 10 }, SQUAD.inbound, 5),
+  ],
+
+  "Material Rico Estrangeiros": [
+    etapa("Redacao do conteudo", { dias: 3 }, SQUAD.conteudo, 2),
+    etapa("Copy de LP e TYP", { dias: 1 }, SQUAD.copy, 2),
+    etapa("Copy dos fluxos de e-mail", { horas: 2 }, SQUAD.copy, 2),
+    etapa("Traducao dos fluxos de e-mail", { dias: 1 }, SQUAD.traducao, 2),
+    etapa("Diagramacao", { dias: 5 }, SQUAD.design, 3),
+    etapa("Copy das pecas de divulgacao", { horas: 4 }, SQUAD.copy, 2),
+    etapa("Design das pecas de divulgacao", { dias: 1 }, SQUAD.design, 3),
+    etapa("Revisao do MR diagramado", { horas: 1 }, SQUAD.revisao, 3),
+    etapa("Revisao de design do MR diagramado", { horas: 1 }, SQUAD.revisao, 3),
+    etapa("Ajustes pos-revisao", { dias: 1 }, SQUAD.design, 3),
+    etapa("Montagem de LP e TYP", { minutos: 30 }, SQUAD.inbound, 4),
+    etapa("Revisao de design da LP e TYP", { horas: 4 }, SQUAD.revisao, 3),
+    etapa("Revisao inbound da LP e TYP", { minutos: 45 }, SQUAD.revisao, 4),
+    etapa("Subir e-mails no RD", { minutos: 30 }, SQUAD.inbound, 4),
+    etapa("Subir MR no RD, TYP e card", { minutos: 30 }, SQUAD.inbound, 4),
+    etapa("Criar pop-up", { minutos: 10 }, SQUAD.inbound, 4),
+    etapa("Criar forms", { minutos: 10 }, SQUAD.inbound, 4),
+    etapa("Programacao e teste de e-mail", { horas: 1 }, SQUAD.inbound, 5),
+    etapa("Programar postagem social", { dias: 1 }, SQUAD.social, 5),
+    etapa("Campanha de ads", { dias: 1 }, SQUAD.performance, 5),
+    etapa("Subir material no site", { dias: 1 }, SQUAD.web, 5),
+    etapa("Atualizar planilha com links", { minutos: 10 }, SQUAD.inbound, 5),
+  ],
+
+  "Material Rico Traduzido": [
+    etapa("Traducao do conteudo", { dias: 2 }, SQUAD.traducao, 2),
+    etapa("Traducao de copy LP e TYP", { horas: 4 }, SQUAD.traducao, 2),
+    etapa("Traducao dos fluxos de e-mail", { horas: 4 }, SQUAD.traducao, 2),
+    etapa("Traducao de pecas de divulgacao", { horas: 4 }, SQUAD.traducao, 2),
+    etapa("Diagramacao", { dias: 2 }, SQUAD.design, 3),
+    etapa("Design das pecas de divulgacao", { dias: 1 }, SQUAD.design, 3),
+    etapa("Revisao do MR diagramado", { horas: 4 }, SQUAD.revisao, 3),
+    etapa("Revisao de design do MR diagramado", { horas: 4 }, SQUAD.revisao, 3),
+    etapa("Ajustes pos-revisao", { dias: 1 }, SQUAD.design, 3),
+    etapa("Montagem LP e TYP", { minutos: 30 }, SQUAD.inbound, 4),
+    etapa("Revisao design LP e TYP", { horas: 4 }, SQUAD.revisao, 3),
+    etapa("Revisao inbound LP e TYP", { minutos: 45 }, SQUAD.revisao, 4),
+    etapa("Subir e-mails no RD", { minutos: 30 }, SQUAD.inbound, 4),
+    etapa("Subir MR no RD/TYP/card", { minutos: 30 }, SQUAD.inbound, 4),
+    etapa("Criar pop-up", { minutos: 10 }, SQUAD.inbound, 4),
+    etapa("Criar forms", { minutos: 10 }, SQUAD.inbound, 4),
+    etapa("Programacao e teste de e-mail", { horas: 1 }, SQUAD.inbound, 5),
+    etapa("Social", { dias: 1 }, SQUAD.social, 5),
+    etapa("Ads", { dias: 1 }, SQUAD.performance, 5),
+    etapa("Site, portal e planilha", { minutos: 45 }, SQUAD.web, 5),
+  ],
+
+  "Folders Digitais": [
+    etapa("Criacao de copy", { horas: 4 }, SQUAD.copy, 2),
+    etapa("Revisao", { horas: 2 }, SQUAD.revisao, 2),
+    etapa("Diagramacao", { dias: 2 }, SQUAD.design, 3),
+    etapa("Desdobramentos de materiais", { dias: 1 }, SQUAD.design, 3),
+    etapa("Aprovacao final", { horas: 1 }, SQUAD.revisao, 3),
+    etapa("Ajustes e fechamento de arquivo", { horas: 4 }, SQUAD.design, 5),
+  ],
+
+  "Folders / Catalogos Impressos Multipaginas": [
+    etapa("Criacao de copy", { dias: 5 }, SQUAD.copy, 2),
+    etapa("Revisao de conteudo", { dias: 2 }, SQUAD.revisao, 2),
+    etapa("Diagramacao", { dias: 7 }, SQUAD.design, 3),
+    etapa("Aprovacao de design", { horas: 4 }, SQUAD.revisao, 3),
+    etapa("Aprovacao de copy", { horas: 2 }, SQUAD.revisao, 2),
+    etapa("Ajustes", { dias: 1 }, SQUAD.design, 3),
+    etapa("Revisao final e fechamento de arquivo", { dias: 2 }, SQUAD.design, 5),
+  ],
+
+  "Videos Internos ou Externos": [
+    etapa("Criacao de roteiro", { dias: 1 }, SQUAD.video, 2),
+    etapa("Aprovacao de roteiro", { horas: 4 }, SQUAD.revisao, 2),
+    etapa("Captacao de video", { dias: 1 }, SQUAD.video, 1),
+    etapa("Edicao", { dias: 5 }, SQUAD.video, 3),
+    etapa("Aprovacao final", { horas: 2 }, SQUAD.revisao, 3),
+    etapa("Ajustes e fechamento", { dias: 3 }, SQUAD.video, 5),
+  ],
+
+  "Videos de Produto": [
+    etapa("Criar roteiro", { dias: 1 }, SQUAD.video, 2),
+    etapa("Aprovacao inicial", { horas: 2 }, SQUAD.revisao, 2),
+    etapa("Captacao de telas e frases de impacto", { dias: 1 }, SQUAD.pd, 1),
+    etapa("Aprovacao de roteiro", { horas: 4 }, SQUAD.revisao, 2),
+    etapa("Edicao", { dias: 5 }, SQUAD.video, 3),
+    etapa("Ajustes", { dias: 3 }, SQUAD.video, 3),
+    etapa("Fechamento do material", { horas: 1 }, SQUAD.video, 5),
+  ],
+
+  "Anuncio de Revista": [
+    etapa("Redacao do anuncio PT", { horas: 4 }, SQUAD.copy, 2),
+    etapa("Revisao de conteudo", { dias: 3 }, SQUAD.revisao, 2),
+    etapa("Design/diagramacao", { horas: 1 }, SQUAD.design, 3),
+    etapa("Aprovacao design interna", { horas: 1 }, SQUAD.revisao, 3),
+    etapa("Fechamento do arquivo", { horas: 4 }, SQUAD.design, 5),
+    etapa("Aprovacao final/WAG", { horas: 4 }, SQUAD.comercial, 5),
+  ],
+
+  "Criativos Ads": [
+    etapa("Briefing com copies e direcionamentos", { dias: 1 }, SQUAD.copy, 2),
+    etapa("Desenvolvimento de design", { dias: 1 }, SQUAD.design, 3),
+    etapa("Aprovacao", { dias: 5 }, SQUAD.revisao, 3),
+  ],
+
+  "Post Social Media": [
+    etapa("Briefing com copies e direcionamentos", { dias: 1 }, SQUAD.copy, 2),
+    etapa("Desenvolvimento de design", { dias: 1 }, SQUAD.design, 3),
+    etapa("Aprovacao", { dias: 3 }, SQUAD.revisao, 3),
+    etapa("Agendamento/publicacao", { minutos: 30 }, SQUAD.social, 5),
+  ],
+
+  "Campanha de Vendas": [
+    etapa("Briefing gerencia/performance", { horas: 1 }, SQUAD.comercial, 1),
+    etapa("Construcao de KV", { dias: 3 }, SQUAD.design, 3),
+    etapa("Copies ads/social/LP/TYP/artes", { dias: 1 }, SQUAD.copy, 2),
+    etapa("Copies de e-mails inbound", { horas: 1 }, SQUAD.copy, 2),
+    etapa("Automacoes PVs", { minutos: 30 }, SQUAD.inbound, 4),
+    etapa("Copies criativos de social, se diferentes", { dias: 5 }, SQUAD.copy, 2),
+    etapa("Artes", { dias: 2 }, SQUAD.design, 3),
+    etapa("Montagem LP/TYP base", { minutos: 30 }, SQUAD.inbound, 4),
+    etapa("Montagem LP/TYP clientes", { minutos: 30 }, SQUAD.inbound, 4),
+    etapa("Review LPs e TYP", { dias: 1 }, SQUAD.revisao, 4),
+    etapa("Aprovacao interna/comercial", { horas: 2 }, SQUAD.comercial, 3),
+    etapa("Possiveis ajustes de arte", { dias: 1 }, SQUAD.design, 3),
+    etapa("Criar e-mails e montar", { horas: 4 }, SQUAD.inbound, 4),
+    etapa("Revisao/teste de e-mails", { horas: 2, minutos: 30 }, SQUAD.inbound, 4),
+    etapa("Programar disparos e lista", { horas: 1 }, SQUAD.inbound, 5),
+    etapa("Subir banners e materiais", { minutos: 30 }, SQUAD.web, 5),
+    etapa("Ads", { dias: 3 }, SQUAD.performance, 5),
+  ],
+
+  "Campanha MKT": [
+    etapa("Brainstorm", { dias: 1 }, SQUAD.comercial, 1),
+    etapa("Briefing gerencia/performance", { horas: 1 }, SQUAD.comercial, 1),
+    etapa("Construcao de KV", { dias: 3 }, SQUAD.design, 3),
+    etapa("Copies ads/social/LP/TYP/artes", { dias: 1 }, SQUAD.copy, 2),
+    etapa("Copies e-mails", { dias: 1 }, SQUAD.copy, 2),
+    etapa("Automacoes PVs", { minutos: 30 }, SQUAD.inbound, 4),
+    etapa("Artes", { dias: 2 }, SQUAD.design, 3),
+    etapa("Montagem LP/TYP base", { dias: 1 }, SQUAD.inbound, 4),
+    etapa("Montagem LP/TYP clientes", { dias: 1 }, SQUAD.inbound, 4),
+    etapa("Review LPs e TYP", { dias: 1 }, SQUAD.revisao, 4),
+    etapa("Aprovacao interna", { horas: 2 }, SQUAD.revisao, 3),
+    etapa("Possiveis ajustes", { dias: 1 }, SQUAD.design, 3),
+    etapa("Criar e-mails e montar", { horas: 4 }, SQUAD.inbound, 4),
+    etapa("Revisao de copies de e-mail", { dias: 2 }, SQUAD.revisao, 2),
+    etapa("Ajustes de e-mail", { dias: 2 }, SQUAD.inbound, 4),
+    etapa("Programar disparos", { horas: 1 }, SQUAD.inbound, 5),
+    etapa("Social", { dias: 3 }, SQUAD.social, 5),
+    etapa("Ads", { dias: 3 }, SQUAD.performance, 5),
+  ],
+
+  "Campanha Ads": [
+    etapa("Briefing artes/copy", { dias: 1 }, SQUAD.copy, 2),
+    etapa("Aprovacao do briefing", { dias: 5 }, SQUAD.revisao, 2),
+    etapa("Desenvolvimento arte/copy", { horas: 2 }, SQUAD.design, 3),
+    etapa("Criar LP/TYP", { minutos: 30 }, SQUAD.inbound, 4),
+    etapa("Review LP/TYP design", { horas: 1 }, SQUAD.revisao, 3),
+    etapa("Review LP/TYP inbound", { dias: 1 }, SQUAD.revisao, 4),
+    etapa("Automacoes PVs", { minutos: 30 }, SQUAD.inbound, 4),
+    etapa("Aprovacao interna", { horas: 2 }, SQUAD.revisao, 3),
+    etapa("Possiveis ajustes", { dias: 2 }, SQUAD.design, 3),
+    etapa("Divulgacao Ads", { dias: 15 }, SQUAD.performance, 5),
+    etapa("Coleta de dados", { minutos: 30 }, SQUAD.performance, 5),
+    etapa("Analise de dados", { dias: 15 }, SQUAD.performance, 5),
+  ],
+
+  Eventos: [
+    etapa("Planejamento e copies para lancamento", { dias: 2 }, SQUAD.eventos, 1),
+    etapa("Copy artes, LP/TYP e KV", { dias: 2 }, SQUAD.copy, 2),
+    etapa("Design KV, headers e artes", { dias: 3 }, SQUAD.design, 3),
+    etapa("LP/TYP, e-mails, automacoes e testes", { dias: 2 }, SQUAD.inbound, 4),
+    etapa("Publicacao da campanha do evento", { dias: 1 }, SQUAD.eventos, 5),
+  ],
+
+  "Blogpost Brasil": [
+    etapa("Criar copy", { dias: 2 }, SQUAD.conteudo, 2),
+    etapa("Revisao SEO e ajustes", { horas: 6 }, SQUAD.revisao, 2),
+    etapa("Estrategia de pontos de conversao", { horas: 1 }, SQUAD.inbound, 4),
+    etapa("Solicitacao de arte", { minutos: 5 }, SQUAD.design, 3),
+    etapa("Agendamento da publicacao", { minutos: 30 }, SQUAD.conteudo, 5),
+    etapa("Upload na planilha", { minutos: 30 }, SQUAD.conteudo, 5),
+  ],
+
+  "Blogpost LATAM / Global / Italia": [
+    etapa("Criar copy", { dias: 2 }, SQUAD.conteudo, 2),
+    etapa("Revisao SEO e ajustes", { horas: 1 }, SQUAD.revisao, 2),
+    etapa("Solicitacao de arte", { minutos: 5 }, SQUAD.design, 3),
+    etapa("Agendamento da publicacao", { minutos: 30 }, SQUAD.conteudo, 5),
+    etapa("Upload na planilha", { minutos: 30 }, SQUAD.conteudo, 5),
+  ],
+
+  Cases: [
+    etapa("Transcricao, revisao e selecao de big numbers", { horas: 2, minutos: 10 }, SQUAD.conteudo, 2),
+    etapa("Roteiro de reels e legenda no video", { horas: 4, minutos: 10 }, SQUAD.video, 3),
+    etapa("Copy LP/TYP, artes e fluxos", { dias: 1, horas: 4 }, SQUAD.copy, 2),
+    etapa("Revisao LP/TYP, artes e fluxo", { dias: 2 }, SQUAD.revisao, 3),
+    etapa("Criacao LP/TYP e configuracoes", { horas: 1, minutos: 10 }, SQUAD.inbound, 4),
+    etapa("Pecas de divulgacao", { dias: 5 }, SQUAD.design, 3),
+    etapa("Revisao da LP e TYP", { dias: 1 }, SQUAD.revisao, 4),
+    etapa("Publicacao e disparo", { horas: 1, minutos: 25 }, SQUAD.inbound, 5),
+    etapa("Post social media", { dias: 2 }, SQUAD.social, 5),
+    etapa("Campanha de ads para o case", { horas: 2 }, SQUAD.performance, 5),
+    etapa("UTMs, Linktree e aprovacao WAG", { horas: 5 }, SQUAD.comercial, 5),
+  ],
+
+  Webinar: [
+    etapa("Selecao de pauta e briefing", { horas: 1 }, SQUAD.eventos, 1),
+    etapa("Contato com convidado", { dias: 5 }, SQUAD.eventos, 1),
+    etapa("Inbound LP/TYP e link do webinar", { horas: 1, minutos: 30 }, SQUAD.inbound, 4),
+    etapa("Grupo WhatsApp e botao na TYP", { horas: 1, minutos: 5 }, SQUAD.inbound, 4),
+    etapa("E-mail convite, WhatsApp e lembretes", { horas: 4 }, SQUAD.copy, 2),
+    etapa("Copies para engajamento", { horas: 1 }, SQUAD.copy, 2),
+    etapa("Design artes", { dias: 5 }, SQUAD.design, 3),
+    etapa("Cortes webinar", { dias: 5 }, SQUAD.video, 3),
+    etapa("Revisao design LP/TYP", { dias: 2 }, SQUAD.revisao, 3),
+    etapa("Social stories/feed/cortes", { dias: 3 }, SQUAD.social, 5),
+    etapa("Ads e aprovacao WAG", { horas: 2 }, SQUAD.performance, 5),
+  ],
+
+  "Webinar com Conteudo": [
+    etapa("Revisao briefing", { minutos: 30 }, SQUAD.eventos, 1),
+    etapa("Contato com convidado e participacao", { dias: 7 }, SQUAD.eventos, 1),
+    etapa("Copy LP/TYP/artes/header e-mail", { dias: 1 }, SQUAD.copy, 2),
+    etapa("Inbound", { horas: 2 }, SQUAD.inbound, 4),
+    etapa("E-mail convite, WhatsApp e lembrete", { horas: 4 }, SQUAD.copy, 2),
+    etapa("Copies grupo WhatsApp", { horas: 1 }, SQUAD.copy, 2),
+    etapa("Design artes", { dias: 5 }, SQUAD.design, 3),
+    etapa("Cortes webinar", { dias: 5 }, SQUAD.video, 3),
+    etapa("Revisao design LP/TYP", { dias: 2 }, SQUAD.revisao, 3),
+    etapa("Social", { dias: 3 }, SQUAD.social, 5),
+    etapa("Ads", { dias: 5 }, SQUAD.performance, 5),
+    etapa("Aprovacao WAG", { horas: 2 }, SQUAD.comercial, 5),
+  ],
+
+  "Atualizacoes P&D / Novidades": [
+    etapa("Revisao do briefing recebido", { minutos: 30 }, SQUAD.pd, 1),
+    etapa("Copy", { horas: 4 }, SQUAD.copy, 2),
+    etapa("Aprovar copy", { horas: 3 }, SQUAD.revisao, 2),
+    etapa("Traducoes LATAM / Global / Italia", { horas: 1 }, SQUAD.traducao, 2),
+    etapa("Design ajustes/artes", { dias: 1 }, SQUAD.design, 3),
+    etapa("Montagem de e-mails BR/LATAM/GLO/ITA", { horas: 4 }, SQUAD.inbound, 4),
+    etapa("Teste, revisao e ajustes de e-mails", { horas: 2 }, SQUAD.inbound, 4),
+    etapa("Aprovacao e-mails BR/LATAM/ITA/GLO", { horas: 4 }, SQUAD.revisao, 4),
+    etapa("Aprovacao ITA/GLO com Marta", { dias: 2 }, SQUAD.revisao, 4),
+    etapa("Disparos BR/LATAM/GLO/ITA", { horas: 2 }, SQUAD.inbound, 5),
+  ],
+});
+
+const ALIASES_TIPO = Object.freeze({
+  "Folders/Catálogos Impressos": "Folders / Catalogos Impressos Multipaginas",
+  "Folders / Catálogos Impressos Multipáginas": "Folders / Catalogos Impressos Multipaginas",
+  "Folders / Catalogos Impressos": "Folders / Catalogos Impressos Multipaginas",
+  "Folders/Catalogos Impressos": "Folders / Catalogos Impressos Multipaginas",
+  "Vídeos": "Videos Internos ou Externos",
+  "Videos": "Videos Internos ou Externos",
+  "Vídeos Internos ou Externos": "Videos Internos ou Externos",
+  "Vídeos de Produto": "Videos de Produto",
+  "Campanha Comercial / Black November": "Campanha de Vendas",
+  "Campanha Comercial": "Campanha de Vendas",
+  "Campanha Vendas": "Campanha de Vendas",
+  "Material Rico Estrangeiro": "Material Rico Estrangeiros",
+  "Material Rico Traducao": "Material Rico Traduzido",
+  "Material Rico Tradução": "Material Rico Traduzido",
+  "Newsletter Espanhol": "Newsletter Espanhol / Italiano / Ingles",
+  "Newsletter Italiano": "Newsletter Espanhol / Italiano / Ingles",
+  "Newsletter Ingles": "Newsletter Espanhol / Italiano / Ingles",
+  "Newsletter Inglês": "Newsletter Espanhol / Italiano / Ingles",
+  "Anúncio de Revista": "Anuncio de Revista",
+  "Atualizações P&D / Novidades": "Atualizacoes P&D / Novidades",
+  "Blogpost LATAM / GLOBAL / ITÁLIA": "Blogpost LATAM / Global / Italia",
+});
+
+function normalizarTipo(tipo) {
+  if (TEMPLATES[tipo]) return tipo;
+  if (ALIASES_TIPO[tipo]) return ALIASES_TIPO[tipo];
+
+  const alvo = removerAcentos(tipo).toLowerCase().trim();
+  const encontrado = Object.keys(TEMPLATES).find(
+    (nome) => removerAcentos(nome).toLowerCase().trim() === alvo
+  );
+  if (encontrado) return encontrado;
+
+  const alias = Object.entries(ALIASES_TIPO).find(
+    ([chave]) => removerAcentos(chave).toLowerCase().trim() === alvo
+  );
+  if (alias) return alias[1];
+
+  throw new Error(`Tipo de campanha nao mapeado: ${tipo}`);
+}
+
+function removerAcentos(texto) {
+  return String(texto).normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+}
+
+function parseDateOnly(valor) {
+  if (valor instanceof Date) {
+    return new Date(Date.UTC(valor.getUTCFullYear(), valor.getUTCMonth(), valor.getUTCDate()));
+  }
+
+  const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(String(valor));
+  if (!match) {
+    throw new Error(`Data invalida: ${valor}. Use o formato YYYY-MM-DD.`);
+  }
+
+  const [, ano, mes, dia] = match.map(Number);
+  const data = new Date(Date.UTC(ano, mes - 1, dia));
+  if (
+    data.getUTCFullYear() !== ano ||
+    data.getUTCMonth() !== mes - 1 ||
+    data.getUTCDate() !== dia
+  ) {
+    throw new Error(`Data inexistente: ${valor}`);
+  }
+
+  return data;
+}
+
+function formatDateOnly(data) {
+  return data.toISOString().slice(0, 10);
+}
+
+function formatDateTime(data) {
+  return data.toISOString().slice(0, 16);
+}
+
+function isBusinessDay(data) {
+  const day = data.getUTCDay();
+  return day !== 0 && day !== 6;
+}
+
+function addCalendarDays(data, quantidade) {
+  const novaData = new Date(data);
+  novaData.setUTCDate(novaData.getUTCDate() + quantidade);
+  return novaData;
+}
+
+function setTime(data, hora, minuto = 0) {
+  return new Date(Date.UTC(data.getUTCFullYear(), data.getUTCMonth(), data.getUTCDate(), hora, minuto));
+}
+
+function nextBusinessDate(data) {
+  let cursor = new Date(data);
+  while (!isBusinessDay(cursor)) {
+    cursor = addCalendarDays(cursor, 1);
+  }
+  return cursor;
+}
+
+function previousBusinessDate(data) {
+  let cursor = new Date(data);
+  while (!isBusinessDay(cursor)) {
+    cursor = addCalendarDays(cursor, -1);
+  }
+  return cursor;
+}
+
+function startOfBusinessDay(data) {
+  return setTime(nextBusinessDate(data), WORKDAY_START_HOUR);
+}
+
+function endOfBusinessDay(data) {
+  return setTime(previousBusinessDate(data), WORKDAY_END_HOUR);
+}
+
+function normalizeForward(data) {
+  let cursor = new Date(data);
+
+  if (!isBusinessDay(cursor)) {
+    return startOfBusinessDay(cursor);
+  }
+
+  const minutosNoDia = cursor.getUTCHours() * 60 + cursor.getUTCMinutes();
+  const inicio = WORKDAY_START_HOUR * 60;
+  const fim = WORKDAY_END_HOUR * 60;
+
+  if (minutosNoDia < inicio) return setTime(cursor, WORKDAY_START_HOUR);
+  if (minutosNoDia >= fim) return startOfBusinessDay(addCalendarDays(cursor, 1));
+  return cursor;
+}
+
+function normalizeBackward(data) {
+  let cursor = new Date(data);
+
+  if (!isBusinessDay(cursor)) {
+    return endOfBusinessDay(cursor);
+  }
+
+  const minutosNoDia = cursor.getUTCHours() * 60 + cursor.getUTCMinutes();
+  const inicio = WORKDAY_START_HOUR * 60;
+  const fim = WORKDAY_END_HOUR * 60;
+
+  if (minutosNoDia > fim) return setTime(cursor, WORKDAY_END_HOUR);
+  if (minutosNoDia <= inicio) return endOfBusinessDay(addCalendarDays(cursor, -1));
+  return cursor;
+}
+
+function addBusinessMinutes(dataInicio, minutos) {
+  if (minutos <= 0) return normalizeForward(dataInicio);
+
+  let cursor = normalizeForward(dataInicio);
+  let restante = minutos;
+
+  while (restante > 0) {
+    const fimDoDia = setTime(cursor, WORKDAY_END_HOUR);
+    const disponivelHoje = Math.round((fimDoDia.getTime() - cursor.getTime()) / 60000);
+
+    if (restante <= disponivelHoje) {
+      return new Date(cursor.getTime() + restante * 60000);
+    }
+
+    restante -= disponivelHoje;
+    cursor = startOfBusinessDay(addCalendarDays(cursor, 1));
+  }
+
+  return cursor;
+}
+
+function subtractBusinessMinutes(dataFim, minutos) {
+  if (minutos <= 0) return normalizeBackward(dataFim);
+
+  let cursor = normalizeBackward(dataFim);
+  let restante = minutos;
+
+  while (restante > 0) {
+    const inicioDoDia = setTime(cursor, WORKDAY_START_HOUR);
+    const disponivelHoje = Math.round((cursor.getTime() - inicioDoDia.getTime()) / 60000);
+
+    if (restante <= disponivelHoje) {
+      return new Date(cursor.getTime() - restante * 60000);
+    }
+
+    restante -= disponivelHoje;
+    cursor = endOfBusinessDay(addCalendarDays(cursor, -1));
+  }
+
+  return cursor;
+}
+
+function criarBlocoBase(campanha, tipoNormalizado, etapaAtual, indiceEtapa, inicio, fim, metadados) {
+  const duracaoHoras = etapaAtual.duracaoMinutos / 60;
+  const statusInicial = campanha.statusInicial || "Planejado";
+
+  return {
+    idCampanha: campanha.id,
+    nomeCampanha: campanha.nome,
+    mercado: campanha.mercado,
+    tipo: campanha.tipo,
+    tipoNormalizado,
+    statusInicial,
+    statusCodigo: campanha.statusCodigo || "planejado",
+    marcador: campanha.marcador || "",
+    origemMes: campanha.origemMes || null,
+    periodoPublicacao: campanha.periodoPublicacao || null,
+    periodoDesenvolvimento: campanha.periodoDesenvolvimento || null,
+    objetivo: campanha.objetivo || null,
+    canais: campanha.canais || null,
+    publico: campanha.publico || null,
+    lp: campanha.lp || null,
+    observacoes: campanha.observacoes || null,
+    selecionada: Boolean(campanha.selecionada),
+    direcao: metadados.direcaoOriginal,
+    dataAlvo: campanha.dataAlvo,
+    dataEvento: metadados.dataEvento ? formatDateOnly(metadados.dataEvento) : null,
+    dataPublicacaoPlanejada: metadados.dataPublicacaoPlanejada
+      ? formatDateOnly(metadados.dataPublicacaoPlanejada)
+      : null,
+    indiceEtapa,
+    etapa: etapaAtual.nome,
+    dataInicio: formatDateOnly(inicio),
+    dataFim: formatDateOnly(fim),
+    inicioDateTime: formatDateTime(inicio),
+    fimDateTime: formatDateTime(fim),
+    duracaoMinutos: etapaAtual.duracaoMinutos,
+    duracaoMinutosStepTasks: etapaAtual.duracaoMinutosStepTasks || etapaAtual.duracaoMinutos,
+    duracaoHoras,
+    prazoStepTasksMinutos: metadados.prazoStepTasksMinutos,
+    prazoPersonalizadoMinutos: metadados.prazoPersonalizadoMinutos,
+    prazoPersonalizadoAtivo: Boolean(metadados.prazoPersonalizadoAtivo),
+    squadResponsavel: etapaAtual.squadResponsavel,
+    esteiraFigma: etapaAtual.esteiraFigma,
+    nomeEsteiraFigma: `${etapaAtual.esteiraFigma}. ${ESTEIRAS_FIGMA[etapaAtual.esteiraFigma]}`,
+    alertaUrgencia: campanha.statusCodigo === "urgente",
+    statusCalculado: statusInicial,
+  };
+}
+
+function aplicarRegraUrgencia(bloco, dataReferenciaInicio) {
+  const inicioOriginal = parseDateTimeUTC(bloco.inicioDateTime);
+  const fimOriginal = parseDateTimeUTC(bloco.fimDateTime);
+
+  if (inicioOriginal >= dataReferenciaInicio) {
+    return bloco;
+  }
+
+  const fimAjustado =
+    fimOriginal < dataReferenciaInicio
+      ? addBusinessMinutes(dataReferenciaInicio, bloco.duracaoMinutos)
+      : fimOriginal;
+
+  return {
+    ...bloco,
+    dataInicioOriginal: bloco.dataInicio,
+    dataFimOriginal: bloco.dataFim,
+    inicioDateTimeOriginal: bloco.inicioDateTime,
+    fimDateTimeOriginal: bloco.fimDateTime,
+    dataInicio: formatDateOnly(dataReferenciaInicio),
+    dataFim: formatDateOnly(fimAjustado),
+    inicioDateTime: formatDateTime(dataReferenciaInicio),
+    fimDateTime: formatDateTime(fimAjustado),
+    alertaUrgencia: true,
+    motivoUrgencia: "Inicio calculado antes da dataReferencia",
+    statusCalculado: "Ajuste Imediato / Urgente",
+  };
+}
+
+function parseDateTimeUTC(valor) {
+  const match = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})$/.exec(valor);
+  if (!match) throw new Error(`DateTime interno invalido: ${valor}`);
+  const [, ano, mes, dia, hora, minuto] = match.map(Number);
+  return new Date(Date.UTC(ano, mes - 1, dia, hora, minuto));
+}
+
+function resolverDirecaoEAlvo(campanha) {
+  const direcaoOriginal = campanha.direcao || DIRECOES.BACKWARD;
+  const dataAlvo = parseDateOnly(campanha.dataAlvo);
+
+  if (direcaoOriginal === DIRECOES.EVENT_DATE) {
+    const dataPublicacaoPlanejada = previousBusinessDate(addCalendarDays(dataAlvo, -30));
+    return {
+      direcaoOriginal,
+      direcaoExecutada: DIRECOES.BACKWARD,
+      dataEvento: dataAlvo,
+      dataPublicacaoPlanejada,
+      cursorInicial: endOfBusinessDay(dataPublicacaoPlanejada),
+    };
+  }
+
+  if (direcaoOriginal === DIRECOES.FORWARD) {
+    return {
+      direcaoOriginal,
+      direcaoExecutada: DIRECOES.FORWARD,
+      dataEvento: null,
+      dataPublicacaoPlanejada: null,
+      cursorInicial: startOfBusinessDay(dataAlvo),
+    };
+  }
+
+  if (direcaoOriginal === DIRECOES.BACKWARD) {
+    const dataPublicacaoPlanejada = previousBusinessDate(dataAlvo);
+    return {
+      direcaoOriginal,
+      direcaoExecutada: DIRECOES.BACKWARD,
+      dataEvento: null,
+      dataPublicacaoPlanejada,
+      cursorInicial: endOfBusinessDay(dataPublicacaoPlanejada),
+    };
+  }
+
+  throw new Error(`Direcao invalida na campanha ${campanha.id}: ${direcaoOriginal}`);
+}
+
+function calcularCampanha(campanha, dataReferenciaInicio) {
+  const tipoNormalizado = normalizarTipo(campanha.tipo);
+  const prazoInfo = resolverEtapasCampanha(campanha, tipoNormalizado);
+  const etapas = prazoInfo.etapas;
+  const metadados = {
+    ...resolverDirecaoEAlvo(campanha),
+    ...prazoInfo,
+  };
+
+  if (metadados.direcaoExecutada === DIRECOES.FORWARD) {
+    let cursorInicio = metadados.cursorInicial;
+
+    return etapas.map((etapaAtual, indice) => {
+      const inicio = normalizeForward(cursorInicio);
+      const fim = addBusinessMinutes(inicio, etapaAtual.duracaoMinutos);
+      cursorInicio = fim;
+
+      return criarBlocoBase(
+        campanha,
+        tipoNormalizado,
+        etapaAtual,
+        indice + 1,
+        inicio,
+        fim,
+        metadados
+      );
+    });
+  }
+
+  let cursorFim = metadados.cursorInicial;
+  const blocosReversos = [];
+
+  for (let indice = etapas.length - 1; indice >= 0; indice -= 1) {
+    const etapaAtual = etapas[indice];
+    const fim = normalizeBackward(cursorFim);
+    const inicio = subtractBusinessMinutes(fim, etapaAtual.duracaoMinutos);
+    cursorFim = inicio;
+
+    const bloco = criarBlocoBase(
+      campanha,
+      tipoNormalizado,
+      etapaAtual,
+      indice + 1,
+      inicio,
+      fim,
+      metadados
+    );
+
+    blocosReversos.push(aplicarRegraUrgencia(bloco, dataReferenciaInicio));
+  }
+
+  return blocosReversos.reverse();
+}
+
+function ordenarBlocos(blocos) {
+  return [...blocos].sort((a, b) => {
+    const dataA = `${a.dataInicio}T${a.inicioDateTime.slice(11)}`;
+    const dataB = `${b.dataInicio}T${b.inicioDateTime.slice(11)}`;
+    return dataA.localeCompare(dataB) || a.nomeCampanha.localeCompare(b.nomeCampanha) || a.indiceEtapa - b.indiceEtapa;
+  });
+}
+
+function agruparPorMercado(blocos) {
+  return blocos.reduce((acc, bloco) => {
+    const chave = bloco.mercado || "GLOBAL";
+    acc[chave] ||= [];
+    acc[chave].push(bloco);
+    return acc;
+  }, {});
+}
+
+function agruparPorEsteira(blocos) {
+  return blocos.reduce((acc, bloco) => {
+    const chave = bloco.nomeEsteiraFigma;
+    acc[chave] ||= [];
+    acc[chave].push(bloco);
+    return acc;
+  }, {});
+}
+
+/**
+ * Calcula o cronograma completo.
+ *
+ * @param {Object} input
+ * @param {string} input.dataReferencia Data no formato YYYY-MM-DD.
+ * @param {Array<Object>} input.campanhas Lista de campanhas.
+ * @returns {{blocos: Array<Object>, porMercado: Object, porEsteira: Object}}
+ */
+function calcularCronograma(input) {
+  if (!input || !Array.isArray(input.campanhas)) {
+    throw new Error("Input invalido: informe { dataReferencia, campanhas: [] }.");
+  }
+
+  const dataReferenciaInicio = startOfBusinessDay(parseDateOnly(input.dataReferencia));
+  const blocos = input.campanhas.flatMap((campanha) => calcularCampanha(campanha, dataReferenciaInicio));
+  const blocosOrdenados = ordenarBlocos(blocos);
+
+  return {
+    blocos: blocosOrdenados,
+    porMercado: agruparPorMercado(blocosOrdenados),
+    porEsteira: agruparPorEsteira(blocosOrdenados),
+  };
+}
+
+const exemplo = {
+  dataReferencia: "2026-05-24",
+  campanhas: [
+    {
+      id: "c1",
+      nome: "Pre-Febratex + Revista Impressa",
+      mercado: "BRASIL",
+      tipo: "Folders/Catálogos Impressos",
+      direcao: "BACKWARD",
+      dataAlvo: "2026-07-15",
+      statusInicial: "Planejado",
+    },
+    {
+      id: "c2",
+      nome: "Emitex BA",
+      mercado: "LATAM",
+      tipo: "Eventos",
+      direcao: "EVENT_DATE",
+      dataAlvo: "2026-06-02",
+      statusInicial: "Confirmado",
+    },
+  ],
+};
+
+if (typeof require !== "undefined" && typeof module !== "undefined" && require.main === module) {
+  const resultado = calcularCronograma(exemplo);
+  console.log(JSON.stringify(resultado, null, 2));
+}
+
+const api = {
+  calcularCronograma,
+  DIRECOES,
+  ESTEIRAS_FIGMA,
+  TEMPLATES,
+  exemplo,
+};
+
+if (typeof module !== "undefined" && module.exports) {
+  module.exports = api;
+}
+
+if (typeof globalThis !== "undefined") {
+  globalThis.ScheduleEngineAudaces = api;
+}
+
+</script>
+    <script>
+window.AudacesRoadmapSeed = {
+  dataReferencia: "2026-05-24",
+  ano: 2026,
+  legenda: [
+    { marcador: "▶", statusCodigo: "andamento", label: "Em execucao" },
+    { marcador: "!", statusCodigo: "urgente", label: "Urgente" },
+    { marcador: "★", statusCodigo: "evento", label: "Evento ancora" },
+    { marcador: "*", statusCodigo: "a_confirmar", label: "A confirmar" },
+    { marcador: "⏸", statusCodigo: "pausado", label: "Pausado" },
+    { marcador: "✓", statusCodigo: "concluido", label: "Concluido" },
+  ],
+  roadmap: {
+    BRASIL: {
+      Mai: [
+        "✓ Campanha Moldes+3D",
+        "✓ OnClass",
+        "! MR",
+        "! Projetos na Isa",
+        "* ONDM Goiania",
+      ],
+      Jun: [
+        "▶ Site + MIV",
+        "▶ Fevest RJ",
+        "! KIT Completo Prod. Textil",
+        "Copa do Mundo reposts",
+        "⏸ Curso Moldes Academy",
+      ],
+      Jul: [
+        "▶ Pre-Febratex + Revista Impressa",
+        "Conecta CE",
+        "* ONDM Fortaleza",
+        "* Audaces Meetings Regionais",
+        "* Fomento foruns Reddit",
+      ],
+      Ago: [
+        "★ FEBRATEX (18-21/08)",
+        "▶ Fashion Meeting visita Audaces",
+        "* LooksMaker",
+        "* Clickfy + Ritmos (lancamentos)",
+        "Focus Fashion Meeting SP",
+        "Masterclass Unique SP (20/08)",
+        "* Inovetex",
+        "* Serie Dentro da Fabrica",
+        "* Evento exclusivo clientes pre-Febratex",
+      ],
+      "Set / Out": [
+        "* Mes do Cliente",
+        "* Acao clientes (almoco / happy hour / kit)",
+        "* Pesquisa clientes - maior relat. confeccoes BR",
+        "* Programa reviews B2BStack / Capterra",
+        "* Semana Inovacao Audaces",
+        "* ONDM Balneario Camboriu",
+        "Fashion Meeting SP (28-29/10)",
+        "Panorama Industria",
+      ],
+      Nov: [
+        "★ Black November",
+        "Live Moldes",
+        "* Congresso ABIT (14-15/11 Fortaleza)",
+        "* ISA Hero - Colecoes que Performam",
+        "* Maratona ISA - Colecao Perfeita 5 Dias",
+        "* Challenge ISA (UGC)",
+        "* Rel. Panorama Gestao Colecoes 2027",
+      ],
+      Dez: [
+        "* Relatorio Moda 2027",
+        "* Connection Audaces 2027",
+        "* Retrospectiva",
+        "* Encontro clientes estrategicos",
+      ],
+    },
+    LATAM: {
+      Mai: [
+        "! KIT Completo Prod. Textil",
+        "Video Chile",
+        "* Live no cliente (dentro da fabrica)",
+        "* Dia do Trabalho - acao profissional",
+        "* Desafio da produtividade",
+      ],
+      Jun: [
+        "▶ Site + MIV",
+        "★ Emitex BA (2-4/06)",
+        "* Kiricocho Case AR",
+        "* Copa do Mundo reposts",
+      ],
+      Jul: [
+        "Panorama questionario",
+        "* ColombiaModa CO (27-29/07)",
+        "* Intermoda Guadalajara MX",
+      ],
+      Ago: [
+        "Material Rico",
+        "* Conteudo tecnico - emails produtividade",
+        "* Provas sociais (mini-docs)",
+      ],
+      "Set / Out": [
+        "* Mes do Cliente LATAM",
+        "* Programa reviews",
+        "* Expocruz BO",
+        "* Fespa MX (10-12/09)",
+        "* Nextech CO (22-24/09)",
+        "* Semana Inovacao LATAM",
+        "* Semana Moda AR (14-16/10)",
+        "* Canaive MX (15-18/10)",
+        "* Ixel Moda CO (15-18/10)",
+      ],
+      Nov: [
+        "★ Black November",
+        "★ Expotextil Peru (5-8/11)",
+        "* Maratona ISA LATAM",
+        "* Rel. Panorama Gestao Colecoes 2027",
+      ],
+      Dez: ["* Relatorio Moda 2027", "* Retrospectiva"],
+    },
+    ITALIA: {
+      Mai: ["▶ Atlas Criativo da Moda (MR)", "* Revitalizacao SEO"],
+      Jun: ["Site + MIV", "* Benchmarking setor IT (infografico)"],
+      Jul: ["Panorama questionario"],
+      Ago: ["Material Rico"],
+      "Set / Out": [],
+      Nov: ["★ Black November"],
+      Dez: ["* Connection Audaces 2027", "* Retrospectiva"],
+    },
+    GLOBAL: {
+      Mai: ["! KIT Completo Prod. Textil"],
+      Jun: ["Site + MIV"],
+      Jul: ["Compass Fase 3"],
+      Ago: ["Compass Fase 3"],
+      "Set / Out": ["Compass Fase 3"],
+      Nov: [],
+      Dez: ["* Connection Audaces 2027", "* Retrospectiva"],
+    },
+  },
+};
+
+</script>
+    <script>
+﻿(function () {
+  const engine = window.ScheduleEngineAudaces;
+  const seed = window.AudacesRoadmapSeed;
+  const STORAGE_KEY = "audaces-roadmap-h2-2026-v2";
+  const DAY_WIDTH = 12;
+  const UNDO_LIMIT = 5;
+
+  const tipos = Object.keys(engine.TEMPLATES).sort((a, b) => a.localeCompare(b, "pt-BR"));
+
+  const statusMap = {
+    planejado: { label: "Planejado", marker: "", confirmed: true },
+    andamento: { label: "Em execucao", marker: "\u25b6", confirmed: true },
+    urgente: { label: "Urgente", marker: "!", confirmed: true },
+    evento: { label: "Evento ancora", marker: "\u2605", confirmed: true },
+    a_confirmar: { label: "A confirmar", marker: "*", confirmed: false },
+    pausado: { label: "Pausado", marker: "\u23f8", confirmed: false },
+    concluido: { label: "Concluido", marker: "\u2713", confirmed: true },
+  };
+
+  const mercados = ["BRASIL", "LATAM", "ITALIA", "GLOBAL"];
+  const monthNumbers = {
+    jan: 1,
+    janeiro: 1,
+    fev: 2,
+    fevereiro: 2,
+    mar: 3,
+    marco: 3,
+    abr: 4,
+    abril: 4,
+    mai: 5,
+    maio: 5,
+    jun: 6,
+    junho: 6,
+    jul: 7,
+    julho: 7,
+    ago: 8,
+    agosto: 8,
+    set: 9,
+    setembro: 9,
+    out: 10,
+    outubro: 10,
+    "set / out": 10,
+    nov: 11,
+    novembro: 11,
+    dez: 12,
+    dezembro: 12,
+  };
+
+  const laneNames = {
+    1: "Eventos / Feriados",
+    2: "Copy",
+    3: "Design",
+    4: "Setup",
+    5: "Publicacao",
+  };
+
+  const state = {
+    view: "gantt",
+    filter: "confirmed",
+    campaignMarket: "ALL",
+    campaignStatus: "ALL",
+    campaigns: [],
+    result: null,
+    undoStack: [],
+  };
+
+  const refs = {
+    referenceDate: document.getElementById("referenceDate"),
+    campaignRows: document.getElementById("campaignRows"),
+    rowTemplate: document.getElementById("campaignRowTemplate"),
+    howToButton: document.getElementById("howToButton"),
+    howToPanel: document.getElementById("howToPanel"),
+    showCampaignsButton: document.getElementById("showCampaignsButton"),
+    loadOnlineSheetButton: document.getElementById("loadOnlineSheetButton"),
+    openImportButton: document.getElementById("openImportButton"),
+    openImportCardButton: document.getElementById("openImportCardButton"),
+    hideHowToButton: document.getElementById("hideHowToButton"),
+    importPanel: document.getElementById("importPanel"),
+    campaignPanel: document.getElementById("campaignPanel"),
+    campaignPanelSummary: document.getElementById("campaignPanelSummary"),
+    addButton: document.getElementById("addCampaignButton"),
+    loadSeedButton: document.getElementById("loadSeedButton"),
+    undoButton: document.getElementById("undoButton"),
+    saveButton: document.getElementById("saveButton"),
+    calculateButton: document.getElementById("calculateButton"),
+    exportCsvButton: document.getElementById("exportCsvButton"),
+    exportAsanaButton: document.getElementById("exportAsanaButton"),
+    exportJsonButton: document.getElementById("exportJsonButton"),
+    selectAllButton: document.getElementById("selectAllButton"),
+    clearSelectionButton: document.getElementById("clearSelectionButton"),
+    deleteSelectedButton: document.getElementById("deleteSelectedButton"),
+    bulkMarket: document.getElementById("bulkMarket"),
+    bulkStatus: document.getElementById("bulkStatus"),
+    bulkType: document.getElementById("bulkType"),
+    bulkDirection: document.getElementById("bulkDirection"),
+    bulkDate: document.getElementById("bulkDate"),
+    bulkCustomDays: document.getElementById("bulkCustomDays"),
+    bulkCustomHours: document.getElementById("bulkCustomHours"),
+    applyBulkButton: document.getElementById("applyBulkButton"),
+    clearBulkDeadlineButton: document.getElementById("clearBulkDeadlineButton"),
+    fileInput: document.getElementById("fileInput"),
+    pasteArea: document.getElementById("pasteArea"),
+    importTextButton: document.getElementById("importTextButton"),
+    resultArea: document.getElementById("resultArea"),
+    resultSubtitle: document.getElementById("resultSubtitle"),
+    totalSteps: document.getElementById("totalSteps"),
+    urgentSteps: document.getElementById("urgentSteps"),
+    totalCampaigns: document.getElementById("totalCampaigns"),
+    periodRange: document.getElementById("periodRange"),
+    alertBox: document.getElementById("alertBox"),
+    tabs: Array.from(document.querySelectorAll(".tab")),
+    filterButtons: Array.from(document.querySelectorAll(".filter-button")),
+    campaignMarketButtons: Array.from(document.querySelectorAll(".market-filter-button")),
+    campaignStatusButtons: Array.from(document.querySelectorAll(".status-filter-button")),
+  };
+
+  let editSession = null;
+  let restoringHistory = false;
+
+  async function init() {
+    const shared = await loadSharePointState();
+    const saved = shared || loadSavedState();
+    if (saved) {
+      refs.referenceDate.value = saved.dataReferencia || seed.dataReferencia;
+      state.filter = saved.filter || "confirmed";
+      state.view = saved.view || "gantt";
+      state.campaignMarket = saved.campaignMarket || "ALL";
+      state.campaignStatus = saved.campaignStatus || "ALL";
+      state.campaigns = normalizeCampaigns(saved.campanhas || []);
+    } else {
+      refs.referenceDate.value = seed.dataReferencia;
+      state.campaigns = createSeedCampaigns();
+    }
+
+    bindEvents();
+    populateBulkTypeOptions();
+    renderCampaignList();
+    syncFilterButtons();
+    syncCampaignMarketButtons();
+    syncCampaignStatusButtons();
+    syncTabs();
+    updateUndoButton();
+    calculate(shared ? "Base compartilhada carregada do SharePoint." : undefined);
+  }
+
+  function bindEvents() {
+    refs.howToButton.addEventListener("click", () => {
+      refs.howToPanel.open = true;
+      refs.howToPanel.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+
+    refs.showCampaignsButton.addEventListener("click", () => {
+      state.campaignMarket = "ALL";
+      state.campaignStatus = "ALL";
+      refs.campaignPanel.open = true;
+      syncCampaignMarketButtons();
+      syncCampaignStatusButtons();
+      renderCampaignList();
+      refs.campaignPanel.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+
+    refs.loadOnlineSheetButton.addEventListener("click", () => {
+      loadOnlineSpreadsheet().catch((error) => {
+        showNotice(`Nao consegui atualizar pela planilha online. Confira se Cronograma de campanhas para GANTT.xlsx esta na mesma pasta. Detalhe: ${error.message}`);
+      });
+    });
+
+    refs.openImportButton.addEventListener("click", () => {
+      openManualImport();
+    });
+
+    refs.openImportCardButton.addEventListener("click", openManualImport);
+
+    refs.hideHowToButton.addEventListener("click", () => {
+      refs.howToPanel.open = false;
+    });
+
+    refs.addButton.addEventListener("click", () => {
+      pushUndoPoint("adicionar campanha");
+      state.campaigns.unshift(createBlankCampaign());
+      renderCampaignList();
+      saveState();
+    });
+
+    refs.loadSeedButton.addEventListener("click", () => {
+      pushUndoPoint("restaurar Base H2");
+      refs.referenceDate.value = seed.dataReferencia;
+      state.campaigns = createSeedCampaigns();
+      state.filter = "confirmed";
+      state.view = "gantt";
+      state.campaignMarket = "ALL";
+      state.campaignStatus = "ALL";
+      renderCampaignList();
+      syncFilterButtons();
+      syncCampaignMarketButtons();
+      syncCampaignStatusButtons();
+      syncTabs();
+      calculate("Base H2 2026 restaurada.");
+    });
+
+    refs.undoButton.addEventListener("click", undoLastAction);
+
+    refs.saveButton.addEventListener("click", async () => {
+      syncCampaignsFromDom();
+      saveState();
+      if (isSharePointHosted()) {
+        try {
+          await saveSharePointState();
+          showNotice("Base salva no SharePoint para o time.");
+        } catch (error) {
+          showNotice(`Nao consegui salvar no SharePoint. Verifique permissao de edicao no arquivo roadmap-data.json. Detalhe: ${error.message}`);
+        }
+      } else {
+        showNotice("Base salva neste navegador.");
+      }
+    });
+
+    refs.calculateButton.addEventListener("click", () => calculate());
+    refs.exportCsvButton.addEventListener("click", exportCsv);
+    refs.exportAsanaButton.addEventListener("click", exportAsanaCsv);
+    refs.exportJsonButton.addEventListener("click", exportJson);
+
+    refs.referenceDate.addEventListener("focusin", () => beginEditSession(refs.referenceDate));
+    refs.referenceDate.addEventListener("input", () => {
+      commitEditUndoPoint(refs.referenceDate, "alterar data de referencia");
+      saveState();
+    });
+    refs.referenceDate.addEventListener("change", () => {
+      commitEditUndoPoint(refs.referenceDate, "alterar data de referencia");
+      calculate();
+    });
+    refs.referenceDate.addEventListener("focusout", () => endEditSession(refs.referenceDate));
+
+    refs.selectAllButton.addEventListener("click", () => {
+      pushUndoPoint("selecionar tudo");
+      const visibleIds = new Set(getCampaignsForPanel().map((campaign) => campaign.id));
+      state.campaigns = state.campaigns.map((campaign) => (visibleIds.has(campaign.id) ? { ...campaign, selecionada: true } : campaign));
+      state.filter = "selected";
+      syncFilterButtons();
+      renderCampaignList();
+      calculate();
+    });
+
+    refs.clearSelectionButton.addEventListener("click", () => {
+      pushUndoPoint("limpar selecao");
+      const visibleIds = new Set(getCampaignsForPanel().map((campaign) => campaign.id));
+      state.campaigns = state.campaigns.map((campaign) => (visibleIds.has(campaign.id) ? { ...campaign, selecionada: false } : campaign));
+      renderCampaignList();
+      calculate();
+    });
+
+    refs.deleteSelectedButton.addEventListener("click", () => {
+      const selectedIds = new Set(getSelectedCampaignsInPanel().map((campaign) => campaign.id));
+      if (!selectedIds.size) {
+        showNotice("Selecione pelo menos uma campanha para apagar.");
+        return;
+      }
+      pushUndoPoint("apagar selecionadas");
+      state.campaigns = state.campaigns.filter((campaign) => !selectedIds.has(campaign.id));
+      renderCampaignList();
+      calculate(`${selectedIds.size} campanha(s) apagadas.`);
+    });
+
+    refs.applyBulkButton.addEventListener("click", applyBulkChanges);
+    refs.clearBulkDeadlineButton.addEventListener("click", clearBulkDeadlines);
+
+    refs.filterButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        if (state.filter === button.dataset.filter) return;
+        pushUndoPoint("alterar filtro");
+        state.filter = button.dataset.filter;
+        syncFilterButtons();
+        calculate();
+      });
+    });
+
+    refs.campaignMarketButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        state.campaignMarket = button.dataset.campaignMarket;
+        syncCampaignMarketButtons();
+        renderCampaignList();
+        calculate();
+      });
+    });
+
+    refs.campaignStatusButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        state.campaignStatus = button.dataset.campaignStatus;
+        syncCampaignStatusButtons();
+        renderCampaignList();
+        calculate();
+      });
+    });
+
+    refs.tabs.forEach((tab) => {
+      tab.addEventListener("click", () => {
+        if (state.view === tab.dataset.view) return;
+        pushUndoPoint("alterar visualizacao");
+        state.view = tab.dataset.view;
+        syncTabs();
+        render();
+      });
+    });
+
+    refs.campaignRows.addEventListener("focusin", (event) => {
+      if (isEditableField(event.target)) beginEditSession(event.target);
+    });
+
+    refs.campaignRows.addEventListener("input", (event) => {
+      const row = event.target.closest(".campaign-row");
+      if (!row) return;
+      commitEditUndoPoint(event.target, "editar campanha");
+      updateCampaignFromRow(row);
+      updateRowSummary(row, findCampaign(row.dataset.id));
+      updateRowDeadline(row, findCampaign(row.dataset.id));
+      saveState();
+    });
+
+    refs.campaignRows.addEventListener("change", (event) => {
+      const row = event.target.closest(".campaign-row");
+      if (!row) return;
+      commitEditUndoPoint(event.target, "editar campanha");
+      updateCampaignFromRow(row);
+      updateRowSummary(row, findCampaign(row.dataset.id));
+      updateRowDeadline(row, findCampaign(row.dataset.id));
+      saveState();
+      if (event.target.classList.contains("field-selected")) {
+        state.filter = "selected";
+        syncFilterButtons();
+        calculate();
+      } else {
+        calculate();
+      }
+    });
+
+    refs.campaignRows.addEventListener("focusout", (event) => {
+      if (isEditableField(event.target)) endEditSession(event.target);
+    });
+
+    refs.campaignRows.addEventListener("click", (event) => {
+      if (event.target.classList.contains("field-selected")) {
+        event.stopPropagation();
+      }
+
+      if (event.target.classList.contains("remove-row")) {
+        const row = event.target.closest(".campaign-row");
+        pushUndoPoint("apagar campanha");
+        state.campaigns = state.campaigns.filter((campaign) => campaign.id !== row.dataset.id);
+        renderCampaignList();
+        calculate();
+      }
+    });
+
+    refs.fileInput.addEventListener("change", handleFileImport);
+    refs.importTextButton.addEventListener("click", () => {
+      importCampaignText(refs.pasteArea.value);
+    });
+  }
+
+  function populateBulkTypeOptions() {
+    tipos.forEach((tipo) => {
+      const option = document.createElement("option");
+      option.value = tipo;
+      option.textContent = tipo;
+      refs.bulkType.appendChild(option);
+    });
+  }
+
+  function applyBulkChanges() {
+    const selected = getSelectedCampaignsInPanel();
+    if (!selected.length) {
+      showNotice("Selecione as campanhas que quer editar em massa.");
+      return;
+    }
+
+    pushUndoPoint("editar selecionadas em massa");
+    const selectedIds = new Set(selected.map((campaign) => campaign.id));
+    state.campaigns = state.campaigns.map((campaign) => {
+      if (!selectedIds.has(campaign.id)) return campaign;
+      const next = { ...campaign };
+      if (refs.bulkMarket.value) next.mercado = refs.bulkMarket.value;
+      if (refs.bulkStatus.value) {
+        next.statusCodigo = refs.bulkStatus.value;
+        next.statusInicial = statusMap[next.statusCodigo]?.label || "Planejado";
+        next.marcador = statusMap[next.statusCodigo]?.marker || "";
+      }
+      if (refs.bulkType.value) next.tipo = refs.bulkType.value;
+      if (refs.bulkDirection.value) next.direcao = refs.bulkDirection.value;
+      if (refs.bulkDate.value) next.dataAlvo = refs.bulkDate.value;
+      if (refs.bulkCustomDays.value !== "") next.prazoPersonalizadoDias = refs.bulkCustomDays.value;
+      if (refs.bulkCustomHours.value !== "") next.prazoPersonalizadoHoras = refs.bulkCustomHours.value;
+      return next;
+    });
+
+    renderCampaignList();
+    calculate(`${selected.length} campanha(s) atualizadas em massa.`);
+  }
+
+  function clearBulkDeadlines() {
+    const selected = getSelectedCampaignsInPanel();
+    if (!selected.length) {
+      showNotice("Selecione as campanhas para limpar o prazo personalizado.");
+      return;
+    }
+
+    pushUndoPoint("limpar prazos personalizados");
+    const selectedIds = new Set(selected.map((campaign) => campaign.id));
+    state.campaigns = state.campaigns.map((campaign) =>
+      selectedIds.has(campaign.id)
+        ? { ...campaign, prazoPersonalizadoDias: "", prazoPersonalizadoHoras: "" }
+        : campaign
+    );
+    renderCampaignList();
+    calculate("Prazo personalizado removido das campanhas selecionadas.");
+  }
+
+  function createSeedCampaigns() {
+    const campaigns = [];
+    Object.entries(seed.roadmap).forEach(([mercado, months]) => {
+      Object.entries(months).forEach(([monthLabel, items]) => {
+        items.forEach((item, index) => {
+          const campaign = createCampaignFromText(item, mercado, monthLabel, index);
+          if (campaign) campaigns.push(campaign);
+        });
+      });
+    });
+    return campaigns;
+  }
+
+  function createCampaignFromText(rawItem, mercado, monthLabel, index) {
+    const parsed = parseStatus(rawItem);
+    if (!parsed.nome || parsed.nome === "-") return null;
+
+    const tipo = inferTipo(parsed.nome, mercado, parsed.statusCodigo);
+    const explicitDate = extractDate(parsed.nome, monthLabel);
+    const dataAlvo = explicitDate || defaultTargetDate(monthLabel);
+    const direcao = tipo === "Eventos" && explicitDate ? "EVENT_DATE" : "BACKWARD";
+    const statusInicial = statusMap[parsed.statusCodigo]?.label || "Planejado";
+
+    return {
+      id: createId(`${mercado}-${monthLabel}-${index}-${parsed.nome}`),
+      nome: parsed.nome,
+      mercado,
+      tipo,
+      direcao,
+      dataAlvo,
+      statusInicial,
+      statusCodigo: parsed.statusCodigo,
+      marcador: parsed.marcador,
+      origemMes: monthLabel,
+      prazoPersonalizadoDias: "",
+      prazoPersonalizadoHoras: "",
+      selecionada: statusMap[parsed.statusCodigo]?.confirmed !== false,
+    };
+  }
+
+  function createBlankCampaign() {
+    return {
+      id: createId(`manual-${Date.now()}`),
+      nome: "Nova campanha",
+      mercado: "BRASIL",
+      tipo: "Campanha MKT",
+      direcao: "BACKWARD",
+      dataAlvo: refs.referenceDate.value || seed.dataReferencia,
+      statusInicial: "Planejado",
+      statusCodigo: "planejado",
+      marcador: "",
+      origemMes: "",
+      prazoPersonalizadoDias: "",
+      prazoPersonalizadoHoras: "",
+      selecionada: true,
+    };
+  }
+
+  function renderCampaignList() {
+    refs.campaignRows.innerHTML = "";
+    const fragment = document.createDocumentFragment();
+    const visibleCampaigns = getCampaignsForPanel();
+    visibleCampaigns.forEach((campaign) => fragment.appendChild(createCampaignRow(campaign)));
+    if (!visibleCampaigns.length) {
+      const empty = document.createElement("div");
+      empty.className = "campaign-list-empty";
+      empty.textContent = "Nenhuma campanha neste mercado.";
+      fragment.appendChild(empty);
+    }
+    refs.campaignRows.appendChild(fragment);
+    updateCampaignPanelSummary();
+  }
+
+  function getCampaignsForPanel() {
+    return state.campaigns.filter((campaign) => matchesMarketFilter(campaign) && matchesStatusFilter(campaign));
+  }
+
+  function getSelectedCampaignsInPanel() {
+    return getCampaignsForPanel().filter((campaign) => campaign.selecionada);
+  }
+
+  function updateCampaignPanelSummary() {
+    if (!refs.campaignPanelSummary) return;
+    const marketText = state.campaignMarket === "ALL" ? "todos os mercados" : state.campaignMarket;
+    const statusText = state.campaignStatus === "ALL" ? "todos status" : statusMap[state.campaignStatus]?.label || state.campaignStatus;
+    const selectedCount = state.campaigns.filter((campaign) => campaign.selecionada).length;
+    refs.campaignPanelSummary.textContent = `${state.campaigns.length} campanhas | ${selectedCount} selecionadas | ${marketText} | ${statusText}`;
+  }
+
+  function createCampaignRow(campaign) {
+    const fragment = refs.rowTemplate.content.cloneNode(true);
+    const row = fragment.querySelector(".campaign-row");
+    row.dataset.id = campaign.id;
+
+    const typeSelect = row.querySelector(".field-type");
+    tipos.forEach((tipo) => {
+      const option = document.createElement("option");
+      option.value = tipo;
+      option.textContent = tipo;
+      typeSelect.appendChild(option);
+    });
+
+    row.querySelector(".field-selected").checked = Boolean(campaign.selecionada);
+    row.querySelector(".field-name").value = campaign.nome || "";
+    row.querySelector(".field-market").value = normalizeMarket(campaign.mercado);
+    row.querySelector(".field-status-code").value = campaign.statusCodigo || "planejado";
+    row.querySelector(".field-type").value = normalizeInitialType(campaign.tipo);
+    row.querySelector(".field-direction").value = campaign.direcao || "BACKWARD";
+    row.querySelector(".field-date").value = campaign.dataAlvo || refs.referenceDate.value;
+    row.querySelector(".field-origin").value = campaign.origemMes || "";
+    row.querySelector(".field-custom-days").value = campaign.prazoPersonalizadoDias || "";
+    row.querySelector(".field-custom-hours").value = campaign.prazoPersonalizadoHoras || "";
+    row.querySelector(".field-selected").addEventListener("click", (event) => event.stopPropagation());
+    updateRowSummary(row, campaign);
+    updateRowDeadline(row, campaign);
+
+    return row;
+  }
+
+  function updateRowSummary(row, campaign) {
+    if (!campaign) return;
+    const status = statusMap[campaign.statusCodigo] || statusMap.planejado;
+    row.querySelector(".market-chip").textContent = campaign.mercado;
+    row.querySelector(".market-chip").className = `market-chip market-${campaign.mercado.toLowerCase()}`;
+    row.querySelector(".summary-name").textContent = campaign.nome || "Sem nome";
+    row.querySelector(".summary-date").textContent = campaign.dataAlvo || "-";
+    row.querySelector(".status-chip").textContent = `${status.marker ? `${status.marker} ` : ""}${status.label}`;
+    row.querySelector(".status-chip").className = `status-chip status-${campaign.statusCodigo || "planejado"}`;
+  }
+
+  function updateRowDeadline(row, campaign) {
+    if (!campaign) return;
+    const standard = standardDeadlineMinutes(campaign.tipo);
+    const custom = customDeadlineMinutes(campaign);
+    const label = custom ? `${formatDuration(standard)} | alternativo ${formatDuration(custom)}` : formatDuration(standard);
+    row.querySelector(".standard-deadline").textContent = label;
+  }
+
+  function standardDeadlineMinutes(tipo) {
+    const normalized = normalizeInitialType(tipo);
+    const etapas = engine.TEMPLATES[normalized] || [];
+    return etapas.reduce((total, etapa) => total + Number(etapa.duracaoMinutos || 0), 0);
+  }
+
+  function customDeadlineMinutes(campaign) {
+    const dias = durationNumber(campaign.prazoPersonalizadoDias);
+    const horas = durationNumber(campaign.prazoPersonalizadoHoras);
+    return Math.round(dias * 480 + horas * 60);
+  }
+
+  function durationNumber(value) {
+    if (value === null || value === undefined || value === "") return 0;
+    const number = Number(String(value).replace(",", "."));
+    return Number.isFinite(number) && number > 0 ? number : 0;
+  }
+
+  function formatDuration(minutes) {
+    if (!minutes) return "0h";
+    const days = Math.floor(minutes / 480);
+    const hours = Math.round(((minutes % 480) / 60) * 10) / 10;
+    const parts = [];
+    if (days) parts.push(`${days}d`);
+    if (hours) parts.push(`${String(hours).replace(".", ",")}h`);
+    return parts.join(" ") || "0h";
+  }
+
+  function updateCampaignFromRow(row) {
+    const campaign = findCampaign(row.dataset.id);
+    if (!campaign) return;
+
+    campaign.selecionada = row.querySelector(".field-selected").checked;
+    campaign.nome = row.querySelector(".field-name").value.trim();
+    campaign.mercado = row.querySelector(".field-market").value;
+    campaign.statusCodigo = row.querySelector(".field-status-code").value;
+    campaign.marcador = statusMap[campaign.statusCodigo]?.marker || "";
+    campaign.statusInicial = statusMap[campaign.statusCodigo]?.label || "Planejado";
+    campaign.tipo = row.querySelector(".field-type").value;
+    campaign.direcao = row.querySelector(".field-direction").value;
+    campaign.dataAlvo = row.querySelector(".field-date").value;
+    campaign.origemMes = row.querySelector(".field-origin").value.trim();
+    campaign.prazoPersonalizadoDias = row.querySelector(".field-custom-days").value;
+    campaign.prazoPersonalizadoHoras = row.querySelector(".field-custom-hours").value;
+  }
+
+  function syncCampaignsFromDom() {
+    refs.campaignRows.querySelectorAll(".campaign-row").forEach(updateCampaignFromRow);
+  }
+
+  function isEditableField(target) {
+    return target && target.matches("input, select, textarea");
+  }
+
+  function beginEditSession(target) {
+    if (restoringHistory) return;
+    const key = historyTargetKey(target);
+    if (!key) return;
+    if (!editSession || editSession.key !== key) {
+      editSession = {
+        key,
+        snapshot: createUndoSnapshot(),
+        pushed: false,
+      };
+    }
+  }
+
+  function commitEditUndoPoint(target, label) {
+    if (restoringHistory) return;
+    const key = historyTargetKey(target);
+    if (!key) return;
+    if (!editSession || editSession.key !== key) {
+      editSession = {
+        key,
+        snapshot: createUndoSnapshot(),
+        pushed: false,
+      };
+    }
+    if (!editSession.pushed) {
+      pushUndoPoint(label, editSession.snapshot);
+      editSession.pushed = true;
+    }
+  }
+
+  function endEditSession(target) {
+    const key = historyTargetKey(target);
+    window.setTimeout(() => {
+      const activeKey = historyTargetKey(document.activeElement);
+      if (editSession && editSession.key === key && activeKey !== key) {
+        editSession = null;
+      }
+    }, 0);
+  }
+
+  function historyTargetKey(target) {
+    if (!target) return "";
+    if (target === refs.referenceDate) return "reference-date";
+    const row = target.closest ? target.closest(".campaign-row") : null;
+    if (!row) return "";
+    const fieldName = Array.from(target.classList || []).find((name) => name.startsWith("field-")) || target.tagName;
+    return `${row.dataset.id}:${fieldName}`;
+  }
+
+  function createUndoSnapshot() {
+    syncCampaignsFromDom();
+    return {
+      dataReferencia: refs.referenceDate.value,
+      filter: state.filter,
+      view: state.view,
+      campaignMarket: state.campaignMarket,
+      campaignStatus: state.campaignStatus,
+      campanhas: clonePlain(state.campaigns),
+    };
+  }
+
+  function pushUndoPoint(label, snapshot = createUndoSnapshot()) {
+    if (restoringHistory) return;
+    const undoItem = {
+      label,
+      snapshot: clonePlain(snapshot),
+    };
+    const undoKey = JSON.stringify(undoItem.snapshot);
+    const last = state.undoStack[state.undoStack.length - 1];
+    if (last && JSON.stringify(last.snapshot) === undoKey) return;
+
+    state.undoStack.push(undoItem);
+    if (state.undoStack.length > UNDO_LIMIT) {
+      state.undoStack.splice(0, state.undoStack.length - UNDO_LIMIT);
+    }
+    updateUndoButton();
+  }
+
+  function undoLastAction() {
+    const undoItem = state.undoStack.pop();
+    if (!undoItem) return;
+
+    restoringHistory = true;
+    editSession = null;
+    refs.referenceDate.value = undoItem.snapshot.dataReferencia || seed.dataReferencia;
+    state.filter = undoItem.snapshot.filter || "confirmed";
+    state.view = undoItem.snapshot.view || "gantt";
+    state.campaignMarket = undoItem.snapshot.campaignMarket || "ALL";
+    state.campaignStatus = undoItem.snapshot.campaignStatus || "ALL";
+    state.campaigns = normalizeCampaigns(undoItem.snapshot.campanhas || []);
+    renderCampaignList();
+    syncFilterButtons();
+    syncCampaignMarketButtons();
+    syncCampaignStatusButtons();
+    syncTabs();
+    updateUndoButton();
+    calculate(`Voltei uma acao: ${undoItem.label}.`);
+    restoringHistory = false;
+  }
+
+  function updateUndoButton() {
+    if (!refs.undoButton) return;
+    refs.undoButton.disabled = !state.undoStack.length;
+    refs.undoButton.textContent = state.undoStack.length ? `Voltar (${state.undoStack.length})` : "Voltar";
+  }
+
+  function clonePlain(value) {
+    return JSON.parse(JSON.stringify(value));
+  }
+
+  function findCampaign(id) {
+    return state.campaigns.find((campaign) => campaign.id === id);
+  }
+
+  function calculate(message) {
+    try {
+      syncCampaignsFromDom();
+      const visibleCampaigns = getVisibleCampaigns();
+      state.result = engine.calcularCronograma({
+        dataReferencia: refs.referenceDate.value,
+        campanhas: visibleCampaigns,
+      });
+      render();
+      setExportEnabled(true);
+      saveState();
+      if (message) showNotice(message);
+    } catch (error) {
+      refs.resultArea.className = "result-area empty-state";
+      refs.resultArea.textContent = error.message;
+      refs.alertBox.hidden = true;
+      setExportEnabled(false);
+    }
+  }
+
+  function getVisibleCampaigns() {
+    let campaigns;
+    if (state.filter === "selected") {
+      campaigns = state.campaigns.filter((campaign) => campaign.selecionada);
+    } else if (state.filter === "all") {
+      campaigns = [...state.campaigns];
+    } else if (state.campaignStatus !== "ALL") {
+      campaigns = [...state.campaigns];
+    } else {
+      campaigns = state.campaigns.filter((campaign) => statusMap[campaign.statusCodigo]?.confirmed !== false);
+    }
+
+    return campaigns.filter((campaign) => matchesMarketFilter(campaign) && matchesStatusFilter(campaign));
+  }
+
+  function matchesMarketFilter(campaign) {
+    return state.campaignMarket === "ALL" || normalizeMarket(campaign.mercado) === state.campaignMarket;
+  }
+
+  function matchesStatusFilter(campaign) {
+    return state.campaignStatus === "ALL" || campaign.statusCodigo === state.campaignStatus;
+  }
+
+  function render() {
+    if (!state.result) return;
+
+    const blocos = state.result.blocos;
+    const urgentes = blocos.filter((bloco) => bloco.alertaUrgencia);
+    const campanhas = new Set(blocos.map((bloco) => bloco.idCampanha));
+
+    refs.totalSteps.textContent = String(blocos.length);
+    refs.urgentSteps.textContent = String(urgentes.length);
+    refs.totalCampaigns.textContent = String(campanhas.size);
+    refs.periodRange.textContent = blocos.length ? `${blocos[0].dataInicio} a ${latestEnd(blocos)}` : "-";
+    refs.resultSubtitle.textContent = `${filterLabel()} \u00b7 ${blocos.length} etapas em ${campanhas.size} campanha(s).`;
+
+    if (urgentes.length) {
+      refs.alertBox.hidden = false;
+      refs.alertBox.textContent = `${urgentes.length} etapa(s) com alerta de urgencia ou inicio antes da data de referencia.`;
+    } else {
+      refs.alertBox.hidden = true;
+    }
+
+    refs.resultArea.className = "result-area";
+    if (state.view === "market") {
+      refs.resultArea.innerHTML = renderGroups(state.result.porMercado);
+      return;
+    }
+
+    if (state.view === "lane") {
+      refs.resultArea.innerHTML = renderGroups(state.result.porEsteira);
+      return;
+    }
+
+    if (state.view === "timeline") {
+      refs.resultArea.innerHTML = renderTimeline(blocos);
+      return;
+    }
+
+    refs.resultArea.innerHTML = renderGantt(blocos);
+  }
+
+  function renderGantt(blocos) {
+    if (!blocos.length) {
+      return '<div class="empty-state result-area">Nenhuma campanha neste filtro.</div>';
+    }
+
+    const range = getGanttRange(blocos);
+    const totalDays = daysBetween(range.start, range.end) + 1;
+    const boardWidth = totalDays * DAY_WIDTH;
+    const layouts = buildLaneLayouts(blocos, range.start);
+    const monthHeaders = buildMonthHeaders(range.start, range.end, boardWidth);
+    const weekHeaders = buildWeekHeaders(range.start, range.end);
+
+    return `
+      <div class="gantt-legend">
+        ${mercados.map((market) => `<span class="legend-item market-dot-${market.toLowerCase()}">${escapeHtml(market)}</span>`).join("")}
+      </div>
+      <div class="gantt-scroll" aria-label="Gantt das campanhas">
+        <div class="gantt-canvas" style="width:${boardWidth + 152}px">
+          <div class="gantt-header-line">
+            <div class="gantt-corner">Esteira</div>
+            <div class="gantt-months" style="width:${boardWidth}px">${monthHeaders}</div>
+          </div>
+          <div class="gantt-header-line weeks-line">
+            <div class="gantt-corner small">Periodo</div>
+            <div class="gantt-weeks" style="width:${boardWidth}px">${weekHeaders}</div>
+          </div>
+          ${[1, 2, 3, 4, 5]
+            .map((lane) => renderGanttLane(lane, layouts[lane] || { bars: [], slotCount: 1 }, boardWidth))
+            .join("")}
+        </div>
+      </div>
+    `;
+  }
+
+  function renderGanttLane(lane, layout, boardWidth) {
+    const height = Math.max(112, layout.slotCount * 32 + 48);
+    return `
+      <section class="gantt-lane lane-bg-${lane}" style="height:${height}px">
+        <div class="gantt-lane-label">${laneNames[lane]}</div>
+        <div class="gantt-lane-track" style="width:${boardWidth}px">
+          ${layout.bars
+            .map((item) => {
+              const bloco = item.bloco;
+              const status = statusMap[bloco.statusCodigo] || statusMap.planejado;
+              const label = `${status.marker ? `${status.marker} ` : ""}${bloco.nomeCampanha}`;
+              return `
+                <div class="gantt-bar market-${normalizeMarket(bloco.mercado).toLowerCase()} ${bloco.alertaUrgencia ? "urgent-bar" : ""} status-${bloco.statusCodigo}"
+                  style="left:${item.left}px; top:${item.top}px; width:${item.width}px"
+                  title="${escapeHtml(bloco.nomeCampanha)} | ${escapeHtml(bloco.etapa)} | ${escapeHtml(bloco.dataInicio)} a ${escapeHtml(bloco.dataFim)}">
+                  ${escapeHtml(label)}
+                </div>
+              `;
+            })
+            .join("")}
+        </div>
+      </section>
+    `;
+  }
+
+  function buildLaneLayouts(blocos, rangeStart) {
+    const layouts = {};
+    [1, 2, 3, 4, 5].forEach((lane) => {
+      const laneBlocks = blocos
+        .filter((bloco) => bloco.esteiraFigma === lane)
+        .sort((a, b) => a.dataInicio.localeCompare(b.dataInicio) || a.dataFim.localeCompare(b.dataFim));
+      const slotEnds = [];
+      const bars = laneBlocks.map((bloco) => {
+        const start = daysBetween(rangeStart, parseDate(bloco.dataInicio));
+        const end = daysBetween(rangeStart, parseDate(bloco.dataFim));
+        let slot = slotEnds.findIndex((slotEnd) => start > slotEnd + 1);
+        if (slot === -1) {
+          slot = slotEnds.length;
+          slotEnds.push(end);
+        } else {
+          slotEnds[slot] = end;
+        }
+        return {
+          bloco,
+          left: start * DAY_WIDTH,
+          width: Math.max(32, (end - start + 1) * DAY_WIDTH),
+          top: 30 + slot * 32,
+        };
+      });
+      layouts[lane] = { bars, slotCount: Math.max(1, slotEnds.length) };
+    });
+    return layouts;
+  }
+
+  function buildMonthHeaders(start, end) {
+    const parts = [];
+    let cursor = new Date(Date.UTC(start.getUTCFullYear(), start.getUTCMonth(), 1));
+    while (cursor <= end) {
+      const monthStart = cursor < start ? start : cursor;
+      const nextMonth = new Date(Date.UTC(cursor.getUTCFullYear(), cursor.getUTCMonth() + 1, 1));
+      const monthEnd = addDays(nextMonth, -1) > end ? end : addDays(nextMonth, -1);
+      const left = daysBetween(start, monthStart) * DAY_WIDTH;
+      const width = (daysBetween(monthStart, monthEnd) + 1) * DAY_WIDTH;
+      parts.push(`<div class="month-cell" style="left:${left}px; width:${width}px">${monthName(cursor)}</div>`);
+      cursor = nextMonth;
+    }
+    return parts.join("");
+  }
+
+  function buildWeekHeaders(start, end) {
+    const parts = [];
+    let cursor = new Date(start);
+    while (cursor <= end) {
+      const weekEnd = addDays(cursor, 6) > end ? end : addDays(cursor, 6);
+      const left = daysBetween(start, cursor) * DAY_WIDTH;
+      const width = (daysBetween(cursor, weekEnd) + 1) * DAY_WIDTH;
+      parts.push(`<div class="week-cell" style="left:${left}px; width:${width}px">${formatShortDate(cursor)} - ${formatShortDate(weekEnd)}</div>`);
+      cursor = addDays(cursor, 7);
+    }
+    return parts.join("");
+  }
+
+  function renderTimeline(blocos) {
+    if (!blocos.length) {
+      return '<div class="empty-state result-area">Nenhuma campanha neste filtro.</div>';
+    }
+
+    const min = parseDate(blocos[0].dataInicio);
+    const max = parseDate(latestEnd(blocos));
+    const totalDays = Math.max(1, daysBetween(min, max) + 1);
+
+    return `
+      <div class="timeline">
+        <div class="timeline-scale">
+          <span></span>
+          <div class="scale-track">
+            <span>${formatShortDate(min)}</span>
+            <span>${formatShortDate(max)}</span>
+          </div>
+        </div>
+        ${blocos
+          .map((bloco) => {
+            const start = parseDate(bloco.dataInicio);
+            const end = parseDate(bloco.dataFim);
+            const left = (daysBetween(min, start) / totalDays) * 100;
+            const width = Math.max(2, ((daysBetween(start, end) + 1) / totalDays) * 100);
+            return `
+              <div class="timeline-row">
+                <div class="timeline-label" title="${escapeHtml(bloco.nomeCampanha)} - ${escapeHtml(bloco.etapa)}">
+                  <div class="campaign-name">${escapeHtml(bloco.nomeCampanha)}</div>
+                  <div class="step-name">${escapeHtml(bloco.etapa)} - ${escapeHtml(bloco.squadResponsavel)} - ${escapeHtml(bloco.dataInicio)} a ${escapeHtml(bloco.dataFim)}</div>
+                </div>
+                <div class="timeline-track">
+                  <div class="bar lane-${bloco.esteiraFigma} ${bloco.alertaUrgencia ? "urgent-bar" : ""}"
+                    style="left:${left}%; width:${width}%"
+                    title="${escapeHtml(bloco.dataInicio)} a ${escapeHtml(bloco.dataFim)}"></div>
+                </div>
+              </div>
+            `;
+          })
+          .join("")}
+      </div>
+    `;
+  }
+
+  function renderGroups(groups) {
+    const entries = Object.entries(groups);
+    if (!entries.length) {
+      return '<div class="empty-state result-area">Nenhum grupo neste filtro.</div>';
+    }
+
+    return `
+      <div class="group-list">
+        ${entries
+          .map(
+            ([groupName, blocos]) => `
+              <section class="group-section">
+                <div class="group-title">
+                  <strong>${escapeHtml(groupName)}</strong>
+                  <span>${blocos.length} etapa(s)</span>
+                </div>
+                <div class="table-wrap">
+                  <table class="result-table">
+                    <thead>
+                      <tr>
+                        <th>Campanha</th>
+                        <th>Mercado</th>
+                        <th>Etapa</th>
+                        <th>Inicio</th>
+                        <th>Fim</th>
+                        <th>Squad</th>
+                        <th>Status</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      ${blocos
+                        .map(
+                          (bloco) => `
+                            <tr>
+                              <td>${escapeHtml(bloco.nomeCampanha)}</td>
+                              <td>${escapeHtml(bloco.mercado)}</td>
+                              <td>${escapeHtml(bloco.etapa)}</td>
+                              <td>${escapeHtml(bloco.dataInicio)}</td>
+                              <td>${escapeHtml(bloco.dataFim)}</td>
+                              <td>${escapeHtml(bloco.squadResponsavel)}</td>
+                              <td><span class="status-pill ${bloco.alertaUrgencia ? "urgent-status" : ""}">${escapeHtml(bloco.statusCalculado)}</span></td>
+                            </tr>
+                          `
+                        )
+                        .join("")}
+                    </tbody>
+                  </table>
+                </div>
+              </section>
+            `
+          )
+          .join("")}
+      </div>
+    `;
+  }
+
+  function handleFileImport(event) {
+    const file = event.target.files && event.target.files[0];
+    if (!file) return;
+    if (/\.xlsx$/i.test(file.name)) {
+      importXlsxFile(file)
+        .catch((error) => showNotice(`Nao consegui ler o XLSX. Detalhe: ${error.message}`))
+        .finally(() => {
+          refs.fileInput.value = "";
+        });
+      return;
+    }
+
+    if (/\.xls$/i.test(file.name)) {
+      showNotice("Esse formato .xls antigo nao e suportado aqui. Salve como .xlsx ou CSV e importe novamente.");
+      refs.fileInput.value = "";
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = () => {
+      importCampaignText(String(reader.result || ""));
+      refs.fileInput.value = "";
+    };
+    reader.readAsText(file, "utf-8");
+  }
+
+  async function importXlsxFile(file) {
+    const rows = await readFirstSheetFromXlsx(file);
+    const imported = parseRowsAsCampaigns(rows);
+    if (!imported.length) {
+      showNotice("Li a planilha, mas nao encontrei campanhas. Verifique se a primeira aba tem mercados nas linhas e meses nas colunas.");
+      return;
+    }
+    pushUndoPoint("importar planilha");
+    state.campaigns = normalizeCampaigns(imported);
+    renderCampaignList();
+    calculate(`${imported.length} campanha(s) importadas de ${file.name}.`);
+  }
+
+  async function loadOnlineSpreadsheet() {
+    refs.loadOnlineSheetButton.disabled = true;
+      refs.loadOnlineSheetButton.textContent = "Atualizando...";
+    try {
+      const response = await fetchOnlineSpreadsheet();
+      if (!response.ok) {
+        throw new Error(`${response.status} ${response.statusText}`);
+      }
+      const blob = await response.blob();
+      const fileLike = {
+        name: "Cronograma de campanhas para GANTT.xlsx",
+        arrayBuffer: () => blob.arrayBuffer(),
+      };
+      await importXlsxFile(fileLike);
+      showNotice("Planilha online atualizada na dashboard. Confira o Gantt e clique em Salvar.");
+    } finally {
+      refs.loadOnlineSheetButton.disabled = false;
+      refs.loadOnlineSheetButton.textContent = "Tentar atualizar online";
+    }
+  }
+
+  function openManualImport() {
+    refs.campaignPanel.open = true;
+    refs.importPanel.open = true;
+    refs.fileInput.click();
+  }
+
+  async function fetchOnlineSpreadsheet() {
+    if (isSharePointHosted()) {
+      const context = await getSharePointRuntimeContext();
+      const endpoint = `${location.origin}${context.sitePath}/_api/web/GetFileByServerRelativeUrl('${escapeODataPath(context.sheetFilePath)}')/$value`;
+      return fetch(endpoint, {
+        cache: "no-store",
+        headers: { Accept: "application/octet-stream" },
+      });
+    }
+
+    const url = new URL("Cronograma de campanhas para GANTT.xlsx", location.href);
+    url.searchParams.set("v", String(Date.now()));
+    return fetch(url, { cache: "no-store" });
+  }
+
+  function importCampaignText(text) {
+    try {
+      const imported = parseImportedCampaigns(text);
+      if (!imported.length) {
+        showNotice("Nao encontrei campanhas no texto importado.");
+        return;
+      }
+      pushUndoPoint("importar planilha");
+      state.campaigns = normalizeCampaigns(imported);
+      renderCampaignList();
+      calculate(`${imported.length} campanha(s) importadas.`);
+    } catch (error) {
+      showNotice(error.message);
+    }
+  }
+
+  function parseImportedCampaigns(text) {
+    const cleanText = String(text || "").trim();
+    if (!cleanText) return [];
+
+    try {
+      const parsed = JSON.parse(cleanText);
+      if (Array.isArray(parsed)) return normalizeCampaigns(parsed);
+      if (Array.isArray(parsed.campanhas)) return normalizeCampaigns(parsed.campanhas);
+    } catch {
+      // Continua para parser de planilha.
+    }
+
+    const rows = parseDelimitedRows(cleanText);
+    return parseRowsAsCampaigns(rows);
+  }
+
+  function parseRowsAsCampaigns(rows) {
+    const nonEmptyRows = rows.filter((row) => row.some((cell) => String(cell || "").trim()));
+    if (!nonEmptyRows.length) return [];
+
+    const headerIndex = nonEmptyRows.findIndex((row) => row.some((cell) => monthNumbers[normalizeHeader(cell)]));
+    if (headerIndex >= 0) {
+      return parseMonthlyMatrix(nonEmptyRows, headerIndex);
+    }
+
+    return parseCampaignTable(nonEmptyRows);
+  }
+
+  function parseMonthlyMatrix(rows, headerIndex) {
+    const header = rows[headerIndex];
+    const monthColumns = header
+      .map((cell, index) => ({ label: String(cell || "").trim(), index }))
+      .filter((item) => monthNumbers[normalizeHeader(item.label)]);
+    const campaigns = [];
+
+    rows.slice(headerIndex + 1).forEach((row) => {
+      const mercado = normalizeMarket(row[0]);
+      if (!mercados.includes(mercado)) return;
+      monthColumns.forEach((column) => {
+        const items = splitCampaignCell(row[column.index]);
+        items.forEach((item, index) => {
+          const campaign = createCampaignFromText(item, mercado, column.label, index);
+          if (campaign) campaigns.push(campaign);
+        });
+      });
+    });
+
+    return campaigns;
+  }
+
+  function parseCampaignTable(rows) {
+    const header = rows[0].map((cell) => normalizeHeader(cell));
+    const getIndex = (...names) => header.findIndex((value) => names.includes(value));
+    const nameIndex = getIndex("nome", "campanha", "campanha / acao / projeto", "campanha/acao/projeto", "campanha / a\u00e7\u00e3o / projeto", "name");
+    const marketIndex = getIndex("mercado", "frente", "market");
+    const typeIndex = getIndex("tipo", "type");
+    const directionIndex = getIndex("direcao", "dire\u00e7\u00e3o", "direction");
+    const dateIndex = getIndex("data alvo", "data", "dataalvo", "target");
+    const publicationIndex = getIndex("periodo de publicacao", "per\u00edodo de publica\u00e7\u00e3o", "periodo publicacao", "publicacao");
+    const developmentIndex = getIndex("periodo de desenvolvimento", "per\u00edodo de desenvolvimento", "periodo desenvolvimento", "desenvolvimento");
+    const statusIndex = getIndex("status", "situacao", "situa\u00e7\u00e3o");
+    const objectiveIndex = getIndex("objetivo");
+    const channelsIndex = getIndex("canais");
+    const audienceIndex = getIndex("publico", "p\u00fablico");
+    const lpIndex = getIndex("lp", "lp?");
+    const notesIndex = getIndex("observacoes", "observa\u00e7\u00f5es", "obs");
+
+    if (nameIndex === -1) return [];
+
+    return rows.slice(1).flatMap((row, index) => {
+      const nome = String(row[nameIndex] || "").trim();
+      if (!nome) return [];
+
+      const importedStatus = parseStatus(row[statusIndex] || "");
+      const explicitDate = row[dateIndex] || "";
+      const periodoPublicacao = row[publicationIndex] || "";
+      const periodoDesenvolvimento = row[developmentIndex] || "";
+      const dateInfo = resolveImportedDate(explicitDate, periodoPublicacao, periodoDesenvolvimento);
+      const markets = parseMarkets(row[marketIndex] || "BRASIL");
+      const baseStatus = dateInfo.unscheduled ? "a_confirmar" : importedStatus.statusCodigo;
+      const customDeadline = parseCustomDeadlineFromRow(row, header);
+
+      return markets.map((mercado) => {
+        const tipo = normalizeInitialType(row[typeIndex] || inferTipo(nome, mercado, baseStatus));
+        const direcao = row[directionIndex] || (tipo === "Eventos" && hasSpecificDate(periodoPublicacao || explicitDate) ? "EVENT_DATE" : "BACKWARD");
+
+        return {
+          id: createId(`import-${index}-${mercado}-${nome}`),
+          nome,
+          mercado,
+          tipo,
+          direcao,
+          dataAlvo: dateInfo.dataAlvo,
+          statusInicial: statusMap[baseStatus]?.label || "Planejado",
+          statusCodigo: baseStatus,
+          marcador: statusMap[baseStatus]?.marker || importedStatus.marcador,
+          origemMes: dateInfo.origemMes,
+          periodoPublicacao,
+          periodoDesenvolvimento,
+          objetivo: row[objectiveIndex] || "",
+          canais: row[channelsIndex] || "",
+          publico: row[audienceIndex] || "",
+          lp: row[lpIndex] || "",
+          observacoes: row[notesIndex] || "",
+          prazoPersonalizadoDias: customDeadline.dias,
+          prazoPersonalizadoHoras: customDeadline.horas,
+          selecionada: statusMap[baseStatus]?.confirmed !== false,
+        };
+      });
+    }).filter(Boolean);
+  }
+
+  function parseCustomDeadlineFromRow(row, header) {
+    const find = (...names) => {
+      const index = header.findIndex((value) => names.includes(value));
+      return index >= 0 ? row[index] : "";
+    };
+    return {
+      dias: find("prazo alternativo dias", "prazo personalizado dias", "prazo dias", "dias prazo"),
+      horas: find("prazo alternativo horas", "prazo personalizado horas", "prazo horas", "horas prazo"),
+    };
+  }
+
+  function resolveImportedDate(explicitDate, periodoPublicacao, periodoDesenvolvimento) {
+    const explicit = parseDatePeriod(explicitDate);
+    if (explicit.start) return { dataAlvo: explicit.start, origemMes: explicit.monthLabel, unscheduled: false };
+
+    const publication = parseDatePeriod(periodoPublicacao);
+    if (publication.start) return { dataAlvo: publication.start, origemMes: publication.monthLabel, unscheduled: false };
+
+    const development = parseDatePeriod(periodoDesenvolvimento);
+    if (development.end) return { dataAlvo: development.end, origemMes: development.monthLabel, unscheduled: false };
+    if (development.start) return { dataAlvo: development.start, origemMes: development.monthLabel, unscheduled: false };
+
+    return { dataAlvo: `${seed.ano || 2026}-12-31`, origemMes: "", unscheduled: true };
+  }
+
+  function parseDatePeriod(value) {
+    const text = removeAccents(String(value || "").toLowerCase().trim());
+    if (!text) return {};
+
+    const range = /(\d{1,2})\s*[\/.-]\s*(\d{1,2})(?:\s*[\/.-]\s*(\d{2,4}))?\s*(?:a|ate|at\u00e9|-)\s*(\d{1,2})\s*[\/.-]\s*(\d{1,2})(?:\s*[\/.-]\s*(\d{2,4}))?/.exec(text);
+    if (range) {
+      const startYear = normalizeYear(range[3]);
+      const endYear = normalizeYear(range[6]);
+      return {
+        start: toDateString(startYear, Number(range[2]), Number(range[1])),
+        end: toDateString(endYear, Number(range[5]), Number(range[4])),
+        monthLabel: monthShortName(Number(range[2])),
+      };
+    }
+
+    const monthName = "(jan|janeiro|fev|fevereiro|mar|marco|abr|abril|mai|maio|jun|junho|jul|julho|ago|agosto|set|setembro|out|outubro|nov|novembro|dez|dezembro)";
+    const singleNamed = new RegExp(`(\\d{1,2})\\s*(?:\\/|de|\\s)\\s*${monthName}`).exec(text);
+    if (singleNamed) {
+      const month = monthNumbers[normalizeHeader(singleNamed[2])];
+      return {
+        start: toDateString(seed.ano || 2026, month, Number(singleNamed[1])),
+        end: toDateString(seed.ano || 2026, month, Number(singleNamed[1])),
+        monthLabel: monthShortName(month),
+      };
+    }
+
+    const singleNumeric = /(\d{1,2})\s*[\/.-]\s*(\d{1,2})(?:\s*[\/.-]\s*(\d{2,4}))?/.exec(text);
+    if (singleNumeric) {
+      const year = normalizeYear(singleNumeric[3]);
+      return {
+        start: toDateString(year, Number(singleNumeric[2]), Number(singleNumeric[1])),
+        end: toDateString(year, Number(singleNumeric[2]), Number(singleNumeric[1])),
+        monthLabel: monthShortName(Number(singleNumeric[2])),
+      };
+    }
+
+    return {};
+  }
+
+  function hasSpecificDate(value) {
+    return Boolean(parseDatePeriod(value).start);
+  }
+
+  function normalizeYear(value) {
+    if (!value) return seed.ano || 2026;
+    const year = Number(value);
+    return year < 100 ? 2000 + year : year;
+  }
+
+  function monthShortName(month) {
+    return ["", "Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"][month] || "";
+  }
+
+  function parseDelimitedRows(text) {
+    const delimiter = text.includes("\t") ? "\t" : text.includes(";") ? ";" : ",";
+    const rows = [];
+    let row = [];
+    let cell = "";
+    let quoted = false;
+
+    for (let index = 0; index < text.length; index += 1) {
+      const char = text[index];
+      const next = text[index + 1];
+
+      if (char === '"' && quoted && next === '"') {
+        cell += '"';
+        index += 1;
+      } else if (char === '"') {
+        quoted = !quoted;
+      } else if (char === delimiter && !quoted) {
+        row.push(cell.trim());
+        cell = "";
+      } else if ((char === "\n" || char === "\r") && !quoted) {
+        if (char === "\r" && next === "\n") index += 1;
+        row.push(cell.trim());
+        rows.push(row);
+        row = [];
+        cell = "";
+      } else {
+        cell += char;
+      }
+    }
+
+    row.push(cell.trim());
+    rows.push(row);
+    return rows;
+  }
+
+  async function readFirstSheetFromXlsx(file) {
+    const files = await unzipXlsx(await file.arrayBuffer());
+    const workbookXml = await readZipText(files, "xl/workbook.xml");
+    const relsXml = await readZipText(files, "xl/_rels/workbook.xml.rels");
+    const workbookDoc = parseXml(workbookXml);
+    const relsDoc = parseXml(relsXml);
+    const sheet = getByLocalName(workbookDoc, "sheet")[0];
+
+    if (!sheet) {
+      throw new Error("nao encontrei abas no arquivo");
+    }
+
+    const relationshipId =
+      sheet.getAttribute("r:id") ||
+      sheet.getAttributeNS("http://schemas.openxmlformats.org/officeDocument/2006/relationships", "id");
+    const rel = getByLocalName(relsDoc, "Relationship").find((item) => item.getAttribute("Id") === relationshipId);
+
+    if (!rel) {
+      throw new Error("nao encontrei a relacao da primeira aba");
+    }
+
+    const target = rel.getAttribute("Target") || "worksheets/sheet1.xml";
+    const sheetPath = target.startsWith("/")
+      ? target.replace(/^\//, "")
+      : `xl/${target.replace(/^\.\//, "")}`;
+    const sharedStrings = files["xl/sharedStrings.xml"] ? parseSharedStrings(await readZipText(files, "xl/sharedStrings.xml")) : [];
+    const sheetXml = await readZipText(files, sheetPath);
+
+    return parseWorksheetRows(sheetXml, sharedStrings);
+  }
+
+  async function unzipXlsx(buffer) {
+    const bytes = new Uint8Array(buffer);
+    const view = new DataView(buffer);
+    const decoder = new TextDecoder("utf-8");
+    const eocdOffset = findEndOfCentralDirectory(view);
+    const entryCount = view.getUint16(eocdOffset + 10, true);
+    let offset = view.getUint32(eocdOffset + 16, true);
+    const files = {};
+
+    for (let index = 0; index < entryCount; index += 1) {
+      if (view.getUint32(offset, true) !== 0x02014b50) {
+        throw new Error("estrutura ZIP invalida");
+      }
+
+      const compression = view.getUint16(offset + 10, true);
+      const compressedSize = view.getUint32(offset + 20, true);
+      const fileNameLength = view.getUint16(offset + 28, true);
+      const extraLength = view.getUint16(offset + 30, true);
+      const commentLength = view.getUint16(offset + 32, true);
+      const localOffset = view.getUint32(offset + 42, true);
+      const name = decoder.decode(bytes.slice(offset + 46, offset + 46 + fileNameLength));
+
+      if (!name.endsWith("/")) {
+        const localNameLength = view.getUint16(localOffset + 26, true);
+        const localExtraLength = view.getUint16(localOffset + 28, true);
+        const dataStart = localOffset + 30 + localNameLength + localExtraLength;
+        const compressed = bytes.slice(dataStart, dataStart + compressedSize);
+        files[name] = compression === 0 ? compressed : await inflateZipEntry(compressed, compression);
+      }
+
+      offset += 46 + fileNameLength + extraLength + commentLength;
+    }
+
+    return files;
+  }
+
+  function findEndOfCentralDirectory(view) {
+    const minOffset = Math.max(0, view.byteLength - 65557);
+    for (let offset = view.byteLength - 22; offset >= minOffset; offset -= 1) {
+      if (view.getUint32(offset, true) === 0x06054b50) return offset;
+    }
+    throw new Error("arquivo XLSX/ZIP invalido");
+  }
+
+  async function inflateZipEntry(bytes, compression) {
+    if (compression !== 8) {
+      throw new Error(`compressao ZIP nao suportada: ${compression}`);
+    }
+
+    if (!window.DecompressionStream) {
+      throw new Error("este navegador nao permite descompactar XLSX diretamente; tente CSV/TSV");
+    }
+
+    const stream = new Blob([bytes]).stream().pipeThrough(new DecompressionStream("deflate-raw"));
+    return new Uint8Array(await new Response(stream).arrayBuffer());
+  }
+
+  async function readZipText(files, path) {
+    const file = files[path];
+    if (!file) {
+      throw new Error(`arquivo interno nao encontrado: ${path}`);
+    }
+    return new TextDecoder("utf-8").decode(file);
+  }
+
+  function parseXml(xmlText) {
+    const doc = new DOMParser().parseFromString(xmlText, "application/xml");
+    if (doc.querySelector("parsererror")) {
+      throw new Error("XML interno invalido");
+    }
+    return doc;
+  }
+
+  function getByLocalName(node, localName) {
+    return Array.from(node.getElementsByTagNameNS("*", localName));
+  }
+
+  function parseSharedStrings(xmlText) {
+    const doc = parseXml(xmlText);
+    return getByLocalName(doc, "si").map((item) =>
+      getByLocalName(item, "t")
+        .map((node) => node.textContent || "")
+        .join("")
+    );
+  }
+
+  function parseWorksheetRows(xmlText, sharedStrings) {
+    const doc = parseXml(xmlText);
+    const rows = [];
+    const sheetData = getByLocalName(doc, "sheetData")[0];
+    if (!sheetData) return rows;
+
+    getByLocalName(sheetData, "row").forEach((rowNode) => {
+      const rowIndex = Number(rowNode.getAttribute("r") || rows.length + 1) - 1;
+      rows[rowIndex] ||= [];
+
+      getByLocalName(rowNode, "c").forEach((cellNode) => {
+        const ref = cellNode.getAttribute("r") || "";
+        const colIndex = columnNameToIndex(ref.replace(/\d+/g, ""));
+        const type = cellNode.getAttribute("t");
+        const valueNode = getByLocalName(cellNode, "v")[0];
+        let value = valueNode ? valueNode.textContent || "" : "";
+
+        if (type === "s") {
+          value = sharedStrings[Number(value)] || "";
+        } else if (type === "inlineStr") {
+          value = getByLocalName(cellNode, "t")
+            .map((node) => node.textContent || "")
+            .join("");
+        }
+
+        rows[rowIndex][colIndex] = value;
+      });
+    });
+
+    return rows.map((row) => {
+      const safeRow = row || [];
+      return safeRow.map((cell) => String(cell || "").trim());
+    });
+  }
+
+  function columnNameToIndex(columnName) {
+    return String(columnName || "A")
+      .toUpperCase()
+      .split("")
+      .reduce((index, letter) => index * 26 + letter.charCodeAt(0) - 64, 0) - 1;
+  }
+
+  function splitCampaignCell(value) {
+    return String(value || "")
+      .split(/\n|\u2022/g)
+      .map((item) => item.replace(/^[-*]\s*/, "").trim())
+      .filter((item) => item && item !== "\u2014" && item !== "-");
+  }
+
+  function parseStatus(value) {
+    let text = normalizeSymbols(String(value || "").trim());
+    const statusByMarker = [
+      ["\u25b6", "andamento"],
+      ["!", "urgente"],
+      ["\u2605", "evento"],
+      ["*", "a_confirmar"],
+      ["\u23f8", "pausado"],
+      ["\u2713", "concluido"],
+    ];
+
+    for (const [marker, statusCodigo] of statusByMarker) {
+      if (text.startsWith(marker)) {
+        text = text.slice(marker.length).trim();
+        return { nome: text, statusCodigo, marcador: marker };
+      }
+    }
+
+    const lower = removeAccents(text).toLowerCase();
+    if (lower.includes("urgente")) return { nome: text, statusCodigo: "urgente", marcador: "!" };
+    if (lower.includes("confirmar")) return { nome: text, statusCodigo: "a_confirmar", marcador: "*" };
+    if (lower.includes("pausado")) return { nome: text, statusCodigo: "pausado", marcador: "\u23f8" };
+    if (lower.includes("concluido")) return { nome: text, statusCodigo: "concluido", marcador: "\u2713" };
+    if (lower.includes("execucao")) return { nome: text, statusCodigo: "andamento", marcador: "\u25b6" };
+
+    return { nome: text, statusCodigo: "planejado", marcador: "" };
+  }
+
+  function parseMarkets(value) {
+    const raw = removeAccents(String(value || "BRASIL").toUpperCase());
+    const explicitCodes = raw.match(/\b(BR|LT|IT|GL)\b/g);
+    if (explicitCodes && explicitCodes.length) {
+      return Array.from(new Set(explicitCodes.map(normalizeMarket)));
+    }
+
+    const tokens = raw
+      .split(/[,;/+]| E |\s{2,}/g)
+      .map((token) => token.trim())
+      .filter(Boolean);
+    const source = tokens.length ? tokens : [raw];
+    const markets = source.map(normalizeMarket).filter(Boolean);
+    return Array.from(new Set(markets.length ? markets : ["BRASIL"]));
+  }
+
+  function inferTipo(nome, mercado, statusCodigo) {
+    const text = removeAccents(nome).toLowerCase();
+    if (text.includes("black")) return "Campanha de Vendas";
+    if (text.includes("video") || text.includes("mini-doc")) return "Videos Internos ou Externos";
+    if (text.includes("case")) return "Cases";
+    if (text.includes("webinar") || text.includes("live")) return "Webinar";
+    if (text.includes("ads")) return "Campanha Ads";
+    if (text.includes("revista") || text.includes("folder") || text.includes("catalogo")) return "Folders / Catalogos Impressos Multipaginas";
+    if (text.includes("mr") || text.includes("material rico") || text.includes("kit completo") || text.includes("relatorio") || text.includes("atlas")) {
+      return mercado === "BRASIL" ? "Material Rico Brasil" : "Material Rico Estrangeiros";
+    }
+    if (
+      statusCodigo === "evento" ||
+      text.includes("febratex") ||
+      text.includes("emitex") ||
+      text.includes("fevest") ||
+      text.includes("colombiamoda") ||
+      text.includes("intermoda") ||
+      text.includes("expocruz") ||
+      text.includes("fespa") ||
+      text.includes("nextech") ||
+      text.includes("canaive") ||
+      text.includes("ixel") ||
+      text.includes("congresso") ||
+      text.includes("meeting") ||
+      text.includes("masterclass") ||
+      text.includes("ondm") ||
+      text.includes("conecta")
+    ) {
+      return "Eventos";
+    }
+    if (text.includes("post") || text.includes("copa do mundo")) return "Post Social Media";
+    if (text.includes("site") || text.includes("miv") || text.includes("compass") || text.includes("mes do cliente") || text.includes("semana inovacao")) return "Campanha MKT";
+    return "Campanha MKT";
+  }
+
+  function extractDate(nome, monthLabel) {
+    const text = String(nome || "");
+    const range = /(\d{1,2})\s*-\s*\d{1,2}\s*\/\s*(\d{1,2})/.exec(text);
+    if (range) return toDateString(seed.ano, Number(range[2]), Number(range[1]));
+
+    const single = /(\d{1,2})\s*\/\s*(\d{1,2})/.exec(text);
+    if (single) return toDateString(seed.ano, Number(single[2]), Number(single[1]));
+
+    const month = monthNumbers[normalizeHeader(monthLabel)];
+    if (!month) return null;
+    return null;
+  }
+
+  function defaultTargetDate(monthLabel) {
+    const normalized = normalizeHeader(monthLabel);
+    const month = monthNumbers[normalized] || 12;
+    const day = new Date(Date.UTC(seed.ano, month, 0)).getUTCDate();
+    return toDateString(seed.ano, month, day);
+  }
+
+  function normalizeCampaigns(campaigns) {
+    return campaigns.map((campaign, index) => {
+      const statusCodigo = campaign.statusCodigo || parseStatus(campaign.statusInicial || "").statusCodigo || "planejado";
+      return {
+        id: campaign.id || createId(`campaign-${index}-${campaign.nome}`),
+        nome: campaign.nome || `Campanha ${index + 1}`,
+        mercado: normalizeMarket(campaign.mercado || "BRASIL"),
+        tipo: normalizeInitialType(campaign.tipo || "Campanha MKT"),
+        direcao: campaign.direcao || "BACKWARD",
+        dataAlvo: campaign.dataAlvo || refs.referenceDate.value || seed.dataReferencia,
+        statusInicial: campaign.statusInicial || statusMap[statusCodigo]?.label || "Planejado",
+        statusCodigo,
+        marcador: campaign.marcador || statusMap[statusCodigo]?.marker || "",
+        origemMes: campaign.origemMes || "",
+        periodoPublicacao: campaign.periodoPublicacao || "",
+        periodoDesenvolvimento: campaign.periodoDesenvolvimento || "",
+        objetivo: campaign.objetivo || "",
+        canais: campaign.canais || "",
+        publico: campaign.publico || "",
+        lp: campaign.lp || "",
+        observacoes: campaign.observacoes || "",
+        prazoPersonalizadoDias: campaign.prazoPersonalizadoDias || campaign.prazoAlternativoDias || "",
+        prazoPersonalizadoHoras: campaign.prazoPersonalizadoHoras || campaign.prazoAlternativoHoras || "",
+        selecionada: campaign.selecionada !== undefined
+          ? Boolean(campaign.selecionada)
+          : statusMap[statusCodigo]?.confirmed !== false,
+      };
+    });
+  }
+
+  function normalizeInitialType(tipo) {
+    const aliases = {
+      "Folders/Cat\u00e1logos Impressos": "Folders / Catalogos Impressos Multipaginas",
+      "Folders/Catalogos Impressos": "Folders / Catalogos Impressos Multipaginas",
+      "Videos": "Videos Internos ou Externos",
+      "V\u00eddeos": "Videos Internos ou Externos",
+      "Campanha Comercial / Black November": "Campanha de Vendas",
+      "Material Rico Estrangeiro": "Material Rico Estrangeiros",
+    };
+    return engine.TEMPLATES[tipo] ? tipo : aliases[tipo] || "Campanha MKT";
+  }
+
+  function normalizeMarket(value) {
+    const text = removeAccents(String(value || "")).toUpperCase().trim();
+    if (text === "BR" || text === "BRA" || text === "BRASIL") return "BRASIL";
+    if (text === "LT" || text === "LATAM") return "LATAM";
+    if (text === "IT" || text === "ITA" || text === "ITALIA") return "ITALIA";
+    if (text === "GL" || text === "GLO" || text === "GLOBAL") return "GLOBAL";
+    if (text.includes("ITAL")) return "ITALIA";
+    if (text.includes("LATAM")) return "LATAM";
+    if (text.includes("GLOBAL")) return "GLOBAL";
+    if (text.includes("LT")) return "LATAM";
+    if (text.includes("GL")) return "GLOBAL";
+    if (text.includes("IT")) return "ITALIA";
+    return "BRASIL";
+  }
+
+  function syncFilterButtons() {
+    refs.filterButtons.forEach((button) => button.classList.toggle("active", button.dataset.filter === state.filter));
+  }
+
+  function syncCampaignMarketButtons() {
+    refs.campaignMarketButtons.forEach((button) => button.classList.toggle("active", button.dataset.campaignMarket === state.campaignMarket));
+  }
+
+  function syncCampaignStatusButtons() {
+    refs.campaignStatusButtons.forEach((button) => button.classList.toggle("active", button.dataset.campaignStatus === state.campaignStatus));
+  }
+
+  function syncTabs() {
+    refs.tabs.forEach((tab) => tab.classList.toggle("active", tab.dataset.view === state.view));
+  }
+
+  function filterLabel() {
+    const details = [];
+    if (state.campaignMarket !== "ALL") details.push(state.campaignMarket);
+    if (state.campaignStatus !== "ALL") details.push(statusMap[state.campaignStatus]?.label || state.campaignStatus);
+    if (state.filter === "selected") return "Selecionadas";
+    const base = state.filter === "all" ? "Todas" : "Confirmadas";
+    return details.length ? `${base} | ${details.join(" | ")}` : base;
+  }
+
+  function setExportEnabled(enabled) {
+    refs.exportCsvButton.disabled = !enabled;
+    refs.exportAsanaButton.disabled = !enabled;
+    refs.exportJsonButton.disabled = !enabled;
+  }
+
+  function showNotice(message) {
+    refs.alertBox.hidden = false;
+    refs.alertBox.textContent = message;
+  }
+
+  function saveState() {
+    localStorage.setItem(
+      STORAGE_KEY,
+      JSON.stringify(buildPersistedState())
+    );
+  }
+
+  function loadSavedState() {
+    try {
+      const value = localStorage.getItem(STORAGE_KEY);
+      return value ? JSON.parse(value) : null;
+    } catch {
+      return null;
+    }
+  }
+
+  function buildPersistedState() {
+    return {
+      dataReferencia: refs.referenceDate.value,
+      filter: state.filter,
+      view: state.view,
+      campaignMarket: state.campaignMarket,
+      campaignStatus: state.campaignStatus,
+      updatedAt: new Date().toISOString(),
+      campanhas: state.campaigns,
+    };
+  }
+
+  function isSharePointHosted() {
+    return /\.sharepoint\.com$/i.test(location.hostname);
+  }
+
+  async function loadSharePointState() {
+    if (!isSharePointHosted()) return null;
+
+    try {
+      const context = await getSharePointRuntimeContext();
+      const url = new URL(context.dataFilePath, location.origin);
+      url.searchParams.set("v", String(Date.now()));
+      const response = await fetch(url, { cache: "no-store" });
+      if (!response.ok) return null;
+      const data = await response.json();
+      return Array.isArray(data.campanhas) && data.campanhas.length ? data : null;
+    } catch {
+      return null;
+    }
+  }
+
+  async function saveSharePointState() {
+    const context = await getSharePointRuntimeContext();
+    const digest = await getSharePointDigest(context.sitePath);
+    const endpoint = `${location.origin}${context.sitePath}/_api/web/GetFileByServerRelativeUrl('${escapeODataPath(context.dataFilePath)}')/$value`;
+    const response = await fetch(endpoint, {
+      method: "PUT",
+      headers: {
+        Accept: "application/json;odata=verbose",
+        "Content-Type": "application/json; charset=utf-8",
+        "X-RequestDigest": digest,
+      },
+      body: JSON.stringify(buildPersistedState(), null, 2),
+    });
+
+    if (!response.ok) {
+      throw new Error(`${response.status} ${response.statusText}. Confirme que roadmap-data.json esta na mesma pasta e que voce tem permissao de edicao.`);
+    }
+  }
+
+  async function getSharePointRuntimeContext() {
+    const sitePath = getSharePointSitePath();
+    const appFilePath = await getCurrentSharePointFilePath(sitePath);
+    const folderPath = appFilePath.split("/").slice(0, -1).join("/");
+
+    return {
+      sitePath,
+      appFilePath,
+      folderPath,
+      dataFilePath: `${folderPath}/roadmap-data.json`,
+      sheetFilePath: `${folderPath}/Cronograma de campanhas para GANTT.xlsx`,
+    };
+  }
+
+  async function getCurrentSharePointFilePath(sitePath) {
+    const sourceDoc = new URLSearchParams(location.search).get("sourcedoc");
+    if (sourceDoc) {
+      const guid = sourceDoc.replace(/[{}]/g, "");
+      const fromId = await getSharePointFilePathById(sitePath, guid);
+      if (fromId) return fromId;
+    }
+
+    const pathname = decodeURIComponent(location.pathname);
+    if (/\/_layouts\/15\/Doc\.aspx$/i.test(pathname)) {
+      throw new Error("O SharePoint abriu no visualizador. Abra o arquivo pelo link direto ou use a versao SPFx para salvar automaticamente.");
+    }
+
+    return pathname;
+  }
+
+  async function getSharePointFilePathById(sitePath, guid) {
+    const candidates = [
+      `${location.origin}${sitePath}/_api/web/GetFileById(guid'${escapeODataPath(guid)}')?$select=ServerRelativeUrl`,
+      `${location.origin}${sitePath}/_api/web/GetFileById('${escapeODataPath(guid)}')?$select=ServerRelativeUrl`,
+    ];
+
+    for (const endpoint of candidates) {
+      try {
+        const response = await fetch(endpoint, {
+          headers: { Accept: "application/json;odata=verbose" },
+        });
+        if (!response.ok) continue;
+        const data = await response.json();
+        const serverRelativeUrl = data?.d?.ServerRelativeUrl || data?.ServerRelativeUrl;
+        if (serverRelativeUrl) return decodeURIComponent(serverRelativeUrl);
+      } catch {
+        // Tenta o proximo formato de endpoint.
+      }
+    }
+
+    return "";
+  }
+
+  async function getSharePointDigest(sitePath) {
+    const response = await fetch(`${location.origin}${sitePath}/_api/contextinfo`, {
+      method: "POST",
+      headers: { Accept: "application/json;odata=verbose" },
+    });
+
+    if (!response.ok) {
+      throw new Error(`contextinfo ${response.status}`);
+    }
+
+    const data = await response.json();
+    return data?.d?.GetContextWebInformation?.FormDigestValue;
+  }
+
+  function getSharePointSitePath() {
+    const parts = location.pathname.split("/").filter(Boolean);
+    if ((parts[0] === "sites" || parts[0] === "teams" || parts[0] === "personal") && parts[1]) {
+      return `/${parts[0]}/${parts[1]}`;
+    }
+    return "";
+  }
+
+  function escapeODataPath(value) {
+    return String(value).replaceAll("'", "''");
+  }
+
+  function exportCsv() {
+    if (!state.result) return;
+    const columns = [
+      "idCampanha",
+      "nomeCampanha",
+      "mercado",
+      "tipo",
+      "statusCalculado",
+      "periodoPublicacao",
+      "periodoDesenvolvimento",
+      "objetivo",
+      "canais",
+      "publico",
+      "lp",
+      "observacoes",
+      "etapa",
+      "dataInicio",
+      "dataFim",
+      "squadResponsavel",
+      "esteiraFigma",
+      "nomeEsteiraFigma",
+      "alertaUrgencia",
+      "dataPublicacaoPlanejada",
+      "dataEvento",
+    ];
+    const rows = state.result.blocos.map((bloco) => columns.map((column) => csvValue(bloco[column])).join(","));
+    downloadFile(`roadmap-audaces-${state.filter}-${refs.referenceDate.value}.csv`, [columns.join(","), ...rows].join("\n"), "text/csv");
+  }
+
+  function exportAsanaCsv() {
+    if (!state.result) return;
+    const columns = ["Name", "Assignee", "Start Date", "Due Date", "Projects", "Section/Column", "Tags", "Notes"];
+    const rows = state.result.blocos.map((bloco) => {
+      const tags = [
+        bloco.mercado,
+        bloco.statusCodigo || bloco.statusCalculado,
+        bloco.alertaUrgencia ? "urgente" : "",
+      ].filter(Boolean).join("; ");
+      const notes = [
+        `Campanha: ${bloco.nomeCampanha}`,
+        `Mercado: ${bloco.mercado}`,
+        `Tipo: ${bloco.tipoNormalizado || bloco.tipo}`,
+        `Squad: ${bloco.squadResponsavel}`,
+        `Esteira: ${bloco.nomeEsteiraFigma}`,
+        bloco.prazoPersonalizadoAtivo ? `Prazo personalizado: ${formatDuration(bloco.prazoPersonalizadoMinutos)}` : "",
+        bloco.alertaUrgencia ? "Alerta: etapa ajustada por urgencia/data de referencia." : "",
+      ].filter(Boolean).join("\n");
+
+      return [
+        `${bloco.nomeCampanha} - ${bloco.etapa}`,
+        "",
+        bloco.dataInicio,
+        bloco.dataFim,
+        "Roadmap Campanhas",
+        bloco.nomeEsteiraFigma,
+        tags,
+        notes,
+      ].map(csvValue).join(",");
+    });
+    downloadFile(`asana-roadmap-audaces-${state.filter}-${refs.referenceDate.value}.csv`, [columns.join(","), ...rows].join("\n"), "text/csv");
+  }
+
+  function exportJson() {
+    if (!state.result) return;
+    downloadFile(
+      `roadmap-audaces-${state.filter}-${refs.referenceDate.value}.json`,
+      JSON.stringify({ campanhas: getVisibleCampaigns(), resultado: state.result }, null, 2),
+      "application/json"
+    );
+  }
+
+  function downloadFile(filename, content, type) {
+    const blob = new Blob([content], { type: `${type};charset=utf-8` });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = filename;
+    link.click();
+    URL.revokeObjectURL(url);
+  }
+
+  function getGanttRange(blocos) {
+    const starts = blocos.map((bloco) => parseDate(bloco.dataInicio));
+    const ends = blocos.map((bloco) => parseDate(bloco.dataFim));
+    const min = new Date(Math.min(...starts.map((date) => date.getTime())));
+    const max = new Date(Math.max(...ends.map((date) => date.getTime())));
+    return {
+      start: new Date(Date.UTC(min.getUTCFullYear(), min.getUTCMonth(), 1)),
+      end: new Date(Date.UTC(max.getUTCFullYear(), max.getUTCMonth() + 1, 0)),
+    };
+  }
+
+  function latestEnd(blocos) {
+    return blocos.reduce((latest, bloco) => (bloco.dataFim > latest ? bloco.dataFim : latest), blocos[0]?.dataFim || "");
+  }
+
+  function parseDate(value) {
+    const [year, month, day] = value.split("-").map(Number);
+    return new Date(Date.UTC(year, month - 1, day));
+  }
+
+  function addDays(date, amount) {
+    const next = new Date(date);
+    next.setUTCDate(next.getUTCDate() + amount);
+    return next;
+  }
+
+  function daysBetween(a, b) {
+    return Math.round((b.getTime() - a.getTime()) / 86400000);
+  }
+
+  function toDateString(year, month, day) {
+    return `${year}-${String(month).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
+  }
+
+  function formatShortDate(date) {
+    return date.toISOString().slice(5, 10).split("-").reverse().join("/");
+  }
+
+  function monthName(date) {
+    return ["Janeiro", "Fevereiro", "Marco", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"][date.getUTCMonth()];
+  }
+
+  function normalizeHeader(value) {
+    return removeAccents(String(value || "").toLowerCase().replace(/\s+/g, " ").trim());
+  }
+
+  function normalizeSymbols(value) {
+    return value
+      .replaceAll("Ã¢Å“â€œ", "\u2713")
+      .replaceAll("Ã¢â€“Â¶", "\u25b6")
+      .replaceAll("Ã¢Ëœâ€¦", "\u2605")
+      .replaceAll("Ã¢ÂÂ¸", "\u23f8")
+      .replaceAll("Ã¢â‚¬Â¢", "\u2022")
+      .replaceAll("âœ“", "\u2713")
+      .replaceAll("â–¶", "\u25b6")
+      .replaceAll("â˜…", "\u2605")
+      .replaceAll("â¸", "\u23f8")
+      .replaceAll("â€¢", "\u2022");
+  }
+
+  function removeAccents(value) {
+    return String(value).normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+  }
+
+  function createId(value) {
+    const base = removeAccents(String(value || "campanha"))
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-|-$/g, "")
+      .slice(0, 72);
+    return `${base}-${Math.random().toString(36).slice(2, 7)}`;
+  }
+
+  function csvValue(value) {
+    const text = value == null ? "" : String(value);
+    return `"${text.replaceAll('"', '""')}"`;
+  }
+
+  function escapeHtml(value) {
+    return String(value)
+      .replaceAll("&", "&amp;")
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;")
+      .replaceAll('"', "&quot;")
+      .replaceAll("'", "&#039;");
+  }
+
+  init();
+})();
+
+
+</script>
+  </body>
+</html>
+
